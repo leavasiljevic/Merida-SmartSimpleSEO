@@ -1,14 +1,7 @@
 import express from 'express';
-<<<<<<< HEAD
-import bodyParser  from "body-parser";
-const fetch = require('node-fetch');
-const cheerio = require('cheerio');
-=======
 import bodyParser from "body-parser";
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
-const async = require('async');
->>>>>>> SimpleSEO
 
 // Create a new express application instance
 const app = express();
@@ -20,49 +13,22 @@ app.get("/users/:uname", (req, res) => {
     res.end("Hello " + req.params.uname);
 });
 
-<<<<<<< HEAD
-function oneSite(sBody){
-    const $ = cheerio.load(sBody);
-    var aResult = [];
-    var nAnchorTags= $("a").length;
-    var nBoldTag=$("b").length;
-    var nItalicTag=$("i").length;
-    var nImgWithoutAlt= $('img:not([alt])').length;
-    var sTitle=$("title").html();
-    var sResult="";
-    sResult= sTitle + " has " + nAnchorTags + " anchors" + " and " + nImgWithoutAlt + " images without \"alt\" tags," +
-     " and " + nBoldTag + " bold tags, and " + nItalicTag + " italic tags";
-    return sResult;
-}
-
-app.get("/compare/", (req, res) => {
-    let sUrl = req.query.q;
-    let sCompetitor = req.query.q1;
-    fetch(sUrl)
-    .then(res => res.text())
-    .then(body => {
-        var sResult = oneSite(body);
-        fetch(sCompetitor)
-        .then(res => res.text())
-        .then(body => {
-            sResult += "<br/>"+ oneSite(body);
-            res.end(sResult);
-        }); 
-        
-    }); 
-});
-=======
 app.get("/compare/", (req, res) => {
     var sClientURL = req.query.clientURL;
     var sCompetitorURL = req.query.competitorURL;
     var sKeyword = req.query.keyword;
     var oReturnResult = {};
 
-    Promise.all([parseWebPage(sClientURL, sKeyword), parseWebPage(sCompetitorURL, sKeyword)])
+    return Promise.all([parseWebPage(sClientURL, sKeyword), parseWebPage(sCompetitorURL, sKeyword)])
     .then(function(result) {
         oReturnResult.clientURLResult = result[0];
         oReturnResult.competitorURLResult = result[1];
+
+        console.log("JSON value before sending response " + JSON.stringify(oReturnResult)); 
+
         res.end(JSON.stringify(oReturnResult));
+
+        
       })
       .catch(function (err) {
            res.end();
@@ -122,7 +88,7 @@ function parseWebPage(sURL, sKeyword) {
                 jsonResult.boldTag = boldTagCount;
                 jsonResult.italicTag = italicTagCount;
                 jsonResult.titleTag = keywordTitleCount;
-                console.log("Result on the server is" + JSON.stringify(jsonResult));
+                // console.log("Result on the server is" + JSON.stringify(jsonResult));
                 resolve(jsonResult);
             })
             .catch(function (err) {
@@ -132,7 +98,6 @@ function parseWebPage(sURL, sKeyword) {
 
 
     });
->>>>>>> SimpleSEO
 
 
 

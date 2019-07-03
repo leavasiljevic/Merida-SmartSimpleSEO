@@ -1,11 +1,6 @@
 document.getElementById("compare").addEventListener("click",function(evt){
     evt.preventDefault();
-<<<<<<< HEAD
-    let sUrl = document.getElementById("enterURL").value;
-    let sCompetitor= document.getElementById("enterCompetitorsURL").value;
-    let sName = "/compare/?q=" + sUrl + "&q1=" + sCompetitor;
-    fetch(sName).then(function(response){
-=======
+
     let sClientURL = document.getElementById("enterURL").value;
     let sCompetitorURL= document.getElementById("enterCompetitorsURL").value || null;
     let sKeyword = document.getElementById("enterKeyword").value || null;
@@ -13,27 +8,14 @@ document.getElementById("compare").addEventListener("click",function(evt){
 
     fetch(sURL)
     .then(function(response){
-      console.log("Response: " + response.status);
->>>>>>> SimpleSEO
+      //console.log("Response: " + response.status);
         if (response.status !== 200) {
             console.log('Looks like there was a problem. Status Code: ' +
               response.status);
             return;
           }
-    
-<<<<<<< HEAD
-          // Examine the text in the response
-          response.text().then(function(data) {
-            console.log(data);
-            document.getElementById("exitString").innerHTML = data;
-          });
-        }
-      )
-      .catch(function(err) {
-        console.log('Fetch Error :-S', err);
-      });
-=======
-          return response.text();
+
+         return response.text();
         }        
       )
       .then(function(data) {
@@ -48,7 +30,6 @@ document.getElementById("compare").addEventListener("click",function(evt){
       });
 
       console.log("Testing asynchrnous");
->>>>>>> SimpleSEO
     
 })
 

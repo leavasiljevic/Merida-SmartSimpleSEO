@@ -32,12 +32,7 @@
     "babel-register": "^6.26.0",
     "cheerio": "^1.0.0-rc.3",
     "express": "*",
-<<<<<<< HEAD
-    "node-fetch": "^2.6.0",
-    "request": "^2.88.0"
-=======
     "node-fetch": "^2.6.0"
->>>>>>> SimpleSEO
   },
   "babel": {
     "presets": [
