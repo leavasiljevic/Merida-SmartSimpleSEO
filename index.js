@@ -15,14 +15,16 @@ app.get("/users/:uname", (req, res) => {
 
 app.get("/compare/", (req, res) => {
     var sClientURL = req.query.clientURL;
-    var sCompetitorURL = req.query.competitorURL;
+    var sCompetitor1URL = req.query.competitor1URL;
+    var sCompetitor2URL = req.query.competitor2URL;
     var sKeyword = req.query.keyword;
     var oReturnResult = {};
 
-    return Promise.all([parseWebPage(sClientURL, sKeyword), parseWebPage(sCompetitorURL, sKeyword)])
+    return Promise.all([parseWebPage(sClientURL, sKeyword), parseWebPage(sCompetitor1URL, sKeyword), parseWebPage(sCompetitor2URL, sKeyword)])
     .then(function(result) {
         oReturnResult.clientURLResult = result[0];
-        oReturnResult.competitorURLResult = result[1];
+        oReturnResult.competitor1URLResult = result[1];
+        oReturnResult.competitor2URLResult = result[2];
 
         console.log("JSON value before sending response " + JSON.stringify(oReturnResult)); 
 
