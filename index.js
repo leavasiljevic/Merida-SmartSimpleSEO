@@ -25,6 +25,14 @@ app.get("/compare/", (req, res) => {
         oReturnResult.clientURLResult = result[0];
         oReturnResult.competitor1URLResult = result[1];
         oReturnResult.competitor2URLResult = result[2];
+        oReturnResult.average = {};
+        var aKeys = Object.keys(oReturnResult.clientURLResult);
+
+        for (var i = 0; i < aKeys.length; i++){
+
+            oReturnResult.average[aKeys[i]] = Math.ceil((oReturnResult.competitor1URLResult[aKeys[i]] + oReturnResult.competitor2URLResult[aKeys[i]]) / 2);
+
+        }
 
         console.log("JSON value before sending response " + JSON.stringify(oReturnResult)); 
 
