@@ -53,32 +53,50 @@ app.get("/compare/", (req, res) => {
     else if (sOperation === "COMPARE_GOOGLE") {
 
         var sClientURL = req.query.clientURL;
-        var sKeyword = req.query.keyword;
-        //var sLocation = req.query.location;
-        //var sSearch = sKeyword + "+" + sLocation;
-        var sSearch = sKeyword;
-
-        // if (sLocation) {
-        //     sSearch = sSearch + " " + sLocation;
-        // }
+        var sSearch = req.query.keyword;
 
         getGoogleTopResults(sSearch)
             .then(function (aUrls) {
                 var aUrlFunctions = [];
                 aUrlFunctions[0] = parseWebPage(sClientURL)
                 for (var i = 1; i <= aUrls.length; i++) {
-                    if (aUrls[i] != undefined) {
+                    if (aUrls[i] && aUrls[i] != undefined) {
                         aUrlFunctions[i] = parseWebPage(aUrls[i])
                     }
                 }
                 Promise.all(aUrlFunctions)
                     .then(function (result) {
-                        var aKeys = Object.keys(result);
-                        for (var i = 0; i <= aKeys.length; i++) {
-                            if (result[i]) {
-                                oReturnResult[i] = result[i];
-                            }
+
+                        console.log("Result from Promise.all is \n" + JSON.stringify(result));
+
+                        var aResult = Object.keys(result);
+                        // console.log("Result length from Promise is " + aResult.length);
+                        oReturnResult.clientURLResult = result[0];
+
+                        var aTagKeys = Object.keys(result[0]);//array of all the keys like h1, h2....
+                        oReturnResult.total = {}; //the total of each key...totalH1
+                        oReturnResult.average = {}; 
+
+                        for(var k=0; k<aTagKeys.length; k++) {
+                            oReturnResult.total[aTagKeys[k]] = 0;//initiating all the JSON object elements as 0
                         }
+
+
+                        for (var i = 1; i < aResult.length; i++) {
+
+                            var oTagResult = result[i];//for the rest of the urls
+                            // console.log("Tag Result " + i + " is " + result[i]);
+                            for(var j=0; j<aTagKeys.length; j++) {
+                                oReturnResult.total[aTagKeys[j]] = oReturnResult.total[aTagKeys[j]] + oTagResult[aTagKeys[j]];
+                            }
+                            
+                        }
+
+                        for(var k=0; k<aTagKeys.length; k++) {
+                            oReturnResult.average[aTagKeys[k]] = Math.ceil(oReturnResult.total[aTagKeys[k]] / (aResult.length -1));
+                        }
+
+
                         res.send(oReturnResult);
                     })
                     .catch(function (err) {
@@ -133,6 +151,7 @@ function parseWebPage(sURL, sKeyword) {
                 var boldTagCount = $("b").length;
                 var italicTagCount = $("i").length;
 
+                
                 jsonResult.title = $("title").html();
                 jsonResult.h1Tag = h1TagCount;
                 jsonResult.h2Tag = h2TagCount;
@@ -161,7 +180,7 @@ function parseWebPage(sURL, sKeyword) {
 function getGoogleTopResults(sSearch) {
     return new Promise(function (resolve, reject) {
         const sUrl = 'https://www.google.com/search?q=' + encodeURI(sSearch);
-        console.log(sUrl);
+        // console.log(sUrl);
         fetch(sUrl)
             .then(res => res.text())
             .then(body => {
