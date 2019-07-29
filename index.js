@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { promises } from 'fs';
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
+const wordCount = require('html-word-count');
 require('url');
 
 
@@ -17,43 +18,112 @@ app.get("/users/:uname", (req, res) => {
 });
 
 app.get("/compare/", (req, res) => {
+
     var sOperation = req.query.operation;
+    var sClientURL = req.query.clientURL;
     var oReturnResult = {};
 
-    if (sOperation === "COMPARE_COMP") {
+    //sOperation = "COMPARE_GOOGLE";
 
-        var sClientURL = req.query.clientURL;
+    if (sOperation == "null" || sOperation == null || sOperation == undefined) {
+
+        res.status(500).send({ error: 'Operation type is missing!' });
+        return;
+
+    } else if (sOperation == "COMPARE_COMP") {
+
         var sCompetitor1URL = req.query.competitor1URL;
         var sCompetitor2URL = req.query.competitor2URL;
-        var sKeyword = req.query.keyword;
+        var sCompetitor3URL = req.query.competitor3URL;
+        var aParseFunctions = [];
+        var sKeyword = null;
+
+        //Check for mandatory parameters in the Request Query String (Coming from UI)
+        if (sClientURL == "null" || sClientURL == null || sClientURL == undefined) {
+            res.status(500).send({ error: 'Client URL is invalid!' });
+            return;
+        }
+        if (sCompetitor1URL == "null" || sCompetitor1URL == null || sCompetitor1URL == undefined) {
+            res.status(500).send({ error: 'Competitor URL is invalid!' });
+            return;
+        }
+
+        aParseFunctions.push(parseWebPage(sClientURL, sKeyword));
+        aParseFunctions.push(parseWebPage(sCompetitor1URL, sKeyword));
+
+        if (sCompetitor2URL !== "null" || sCompetitor2URL == null || sCompetitor2URL == undefined ) {
+            aParseFunctions.push(parseWebPage(sCompetitor2URL, sKeyword));
+        }
+
+        if (sCompetitor3URL !== "null" || sCompetitor3URL == null || sCompetitor3URL == undefined ) {
+            aParseFunctions.push(parseWebPage(sCompetitor3URL, sKeyword));
+        }
 
 
-        return Promise.all(
-            [parseWebPage(sClientURL, sKeyword),
-            parseWebPage(sCompetitor1URL, sKeyword),
-            parseWebPage(sCompetitor2URL, sKeyword)])
-            .then( function (result) {
+        return Promise.all(aParseFunctions)
+            .then(function (result) {
                 oReturnResult.clientURLResult = result[0];
                 oReturnResult.competitor1URLResult = result[1];
-                oReturnResult.competitor2URLResult = result[2];
+                if (result[2]) {
+                    oReturnResult.competitor2URLResult = result[2];
+                }
+                if (result[3]) {
+                    oReturnResult.competitor3URLResult = result[3];
+                }
+
+
                 oReturnResult.average = {};
                 var aKeys = Object.keys(oReturnResult.clientURLResult);
 
                 for (var i = 0; i < aKeys.length; i++) {
-                    oReturnResult.average[aKeys[i]] = Math.ceil((oReturnResult.competitor1URLResult[aKeys[i]] + oReturnResult.competitor2URLResult[aKeys[i]]) / 2);
+                    var iTotal = 0;
+
+                    iTotal = iTotal + oReturnResult.competitor1URLResult[aKeys[i]];
+
+                    if (oReturnResult.competitor2URLResult) {
+                        iTotal = iTotal + oReturnResult.competitor2URLResult[aKeys[i]];
+                    }
+
+                    if (oReturnResult.competitor3URLResult) {
+                        iTotal = iTotal + oReturnResult.competitor3URLResult[aKeys[i]];
+                    }
+
+                    oReturnResult.average[aKeys[i]] = Math.ceil(iTotal / (aParseFunctions.length - 1));
                 }
-                console.log("JSON value before sending response " + JSON.stringify(oReturnResult));
-                res.send(oReturnResult);
+
+                // console.log("JSON value before sending response " + JSON.stringify(oReturnResult));
+
+                res.send(JSON.stringify(oReturnResult));
+
+
             })
             .catch(function (err) {
                 res.send();
                 console.log(err)
             });
-    }
-    else if (sOperation === "COMPARE_GOOGLE") {
 
-        var sClientURL = req.query.clientURL;
-        var sSearch = req.query.keyword;
+
+
+    } else if (sOperation == "COMPARE_GOOGLE") {
+
+        var sKeyword = req.query.keyword;
+        var sLocation = req.query.location;
+        var sSearch = sKeyword;
+
+        if(sLocation !="null"){
+            sSearch = sSearch + sLocation;
+        }
+        
+        //Check for mandatory parameters in the Request Query String (Coming from UI)
+        if (sClientURL == "null" || sClientURL == null || sClientURL == undefined) {
+            res.status(500).send({ error: 'Client URL is invalid!' });
+            return;
+        }
+
+        if (sSearch == "null" || sSearch == null || sSearch == undefined) {
+            res.status(500).send({ error: 'Keyword is invalid!' });
+            return;
+        }
 
         getGoogleTopResults(sSearch)
             .then(function (aUrls) {
@@ -75,9 +145,9 @@ app.get("/compare/", (req, res) => {
 
                         var aTagKeys = Object.keys(result[0]);//array of all the keys like h1, h2....
                         oReturnResult.total = {}; //the total of each key...totalH1
-                        oReturnResult.average = {}; 
+                        oReturnResult.average = {};
 
-                        for(var k=0; k<aTagKeys.length; k++) {
+                        for (var k = 0; k < aTagKeys.length; k++) {
                             oReturnResult.total[aTagKeys[k]] = 0;//initiating all the JSON object elements as 0
                         }
 
@@ -86,32 +156,33 @@ app.get("/compare/", (req, res) => {
 
                             var oTagResult = result[i];//for the rest of the urls
                             // console.log("Tag Result " + i + " is " + result[i]);
-                            for(var j=0; j<aTagKeys.length; j++) {
+                            for (var j = 0; j < aTagKeys.length; j++) {
                                 oReturnResult.total[aTagKeys[j]] = oReturnResult.total[aTagKeys[j]] + oTagResult[aTagKeys[j]];
                             }
-                            
+
                         }
 
-                        for(var k=0; k<aTagKeys.length; k++) {
-                            oReturnResult.average[aTagKeys[k]] = Math.ceil(oReturnResult.total[aTagKeys[k]] / (aResult.length -1));
+                        for (var k = 0; k < aTagKeys.length; k++) {
+                            oReturnResult.average[aTagKeys[k]] = Math.ceil(oReturnResult.total[aTagKeys[k]] / (aResult.length - 1));
                         }
 
 
                         res.send(oReturnResult);
                     })
                     .catch(function (err) {
-                        res.send();
+                        res.status(500).send({ error: 'Error occured on the server' });
                         console.log(err)
                     });
             })
             .catch(function (err) {
-                res.send();
+                res.status(500).send({ error: 'Error occured on the server' });
                 console.log(err)
             });
+
+    } else {
+        res.status(500).send({ error: 'Operation type is invalid!' });
     }
-    else {
-        res.status(500).send({ error: 'Operation type is invalid!' })
-    }
+
 });
 
 
@@ -132,34 +203,28 @@ function parseWebPage(sURL, sKeyword) {
                     keywordTitleCount = ($("title").html().match(re) || []).length;
 
                 }
-
+                var iWordCount = wordCount(html);
                 var h1TagCount = $("h1").length;
                 var h2TagCount = $("h2").length;
                 var h3TagCount = $("h3").length;
                 var h4TagCount = $("h4").length;
                 var h5TagCount = $("h5").length;
                 var h6TagCount = $("h6").length;
-                var ImgWithoutAltTagCount = 0;
-                try {
-                    ImgWithoutAltTagCount = $("img: not([alt])").length;
-                }
-                catch (e) {
-                   console.log("Image without alt" + " "+ e.toString())
-                }
-
+                var imgTagCount = $("img").length;
                 var linkTagCount = $("a").length;
                 var boldTagCount = $("b").length;
                 var italicTagCount = $("i").length;
 
-                
+
                 jsonResult.title = $("title").html();
+                jsonResult.wordCount = iWordCount;
                 jsonResult.h1Tag = h1TagCount;
                 jsonResult.h2Tag = h2TagCount;
                 jsonResult.h3Tag = h3TagCount;
                 jsonResult.h4Tag = h4TagCount;
                 jsonResult.h5Tag = h5TagCount;
                 jsonResult.h6Tag = h6TagCount;
-                jsonResult.altTag = ImgWithoutAltTagCount;
+                jsonResult.imgTag = imgTagCount;
                 jsonResult.linkTag = linkTagCount;
                 jsonResult.keyword = keywordCount;
                 jsonResult.boldTag = boldTagCount;
@@ -195,7 +260,7 @@ function getGoogleTopResults(sSearch) {
                         aUrls.push(myUrl.searchParams.get("q"));
                     }
                 }
-                resolve(aUrls.slice(0,10));
+                resolve(aUrls.slice(0, 10));
 
             })
             .catch(e => {
