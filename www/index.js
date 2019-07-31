@@ -1,3 +1,5 @@
+
+
 document.getElementById("compare").addEventListener("click", function (evt) {
   evt.preventDefault();
 
@@ -93,7 +95,7 @@ function CreateTableFromJSON(jsonData) {
   }
 
   var divContainer = document.getElementById("results");
-  divContainer.innerHTML = "";
+  divContainer.freeResult.innerHTML= "";
   divContainer.appendChild(table);
 }
 
