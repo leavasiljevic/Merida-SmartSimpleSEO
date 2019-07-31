@@ -36,7 +36,7 @@ app.get("/compare/", (req, res) => {
         var sCompetitor2URL = req.query.competitor2URL;
         var sCompetitor3URL = req.query.competitor3URL;
         var aParseFunctions = [];
-        var sKeyword = null;
+        var sKeyword = req.query.keyword || null;
 
         //Check for mandatory parameters in the Request Query String (Coming from UI)
         if (sClientURL == "null" || sClientURL == null || sClientURL == undefined) {

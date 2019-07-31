@@ -7,7 +7,7 @@ document.getElementById("compare").addEventListener("click", function (evt) {
   let sCompetitor1URL = document.getElementById("enterCompetitor1URL").value || null;
   let sCompetitor2URL = document.getElementById("enterCompetitor2URL").value || null;
   let sCompetitor3URL = "null";
-  let sOperation = "COMPARE_GOOGLE"; //COMPARE_COMP or COMPARE_GOOGLE
+  let sOperation = "COMPARE_COMP"; //COMPARE_COMP or COMPARE_GOOGLE
   if (document.getElementById("enterCompetitor3URL")) {
     sCompetitor3URL = document.getElementById("enterCompetitor3URL").value || null;
   }
@@ -76,7 +76,9 @@ function CreateTableFromJSON(jsonData) {
 
     tr.insertCell(-1).innerHTML = jsonData.clientURLResult[resultRowKeys[i]];
 
-    tr.insertCell(-1).innerHTML = jsonData.competitor1URLResult[resultRowKeys[i]];
+    if (jsonData.competitor1URLResult) {
+      tr.insertCell(-1).innerHTML = jsonData.competitor1URLResult[resultRowKeys[i]];
+    }
 
     if (jsonData.competitor2URLResult) {
       tr.insertCell(-1).innerHTML = jsonData.competitor2URLResult[resultRowKeys[i]];
