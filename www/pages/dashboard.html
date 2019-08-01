@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../styles/normalize.css">
+<link rel="stylesheet" href="../styles/main.css">
+<script src="index.js"></script>
+
+
+<head>
+    <title>Dashboard</title>  
+</head>
+
+<body>
+    <header>
+        <div class="content">
+            <h1>Smart Simple SEO</h1>
+            <div class="nav-bar">
+                <a href="../index.html" >Home</a>
+                <a href="../pages/dashboard.html" class="current">Dashboard</a>
+                <a href="../pages/accountSetting.html">Account Settings</a>
+                <a href="../index.html">LogOut</a>
+                <a href="../pages/contact.html">Contact</a>
+            </div>
+        </div>
+    </header>
+ 
+    <section>
+      <div class="main">
+          <h2>Welcome Back, User!</h2>
+          <h3>Your Past SEO Searches</h3>
+          <a label id="firstUrlDate">July-03-2019</a>&nbsp;&nbsp;
+          <a label id="firstUrl">shimamaleki.com</a>
+          <br>
+          <a label id="firstUrlDate">July-18-2019</a>&nbsp;&nbsp;
+          <a label id="secondUrl">shimamaleki.com</a>
+          <br>
+          <a label id="firstUrlDate">July-23-2019</a>&nbsp;&nbsp;
+          <a label id="thirdUrl">shimamaleki.com</a>
+          <h3>Ready for another SEO search?</h3>
+
+            <form>
+              <div class="input01" id="enterUrl">
+                  <label>Enter your webpage URL:</label><br><br>
+                  <input type="text" name="url" size="100"><br><br>
+              </div>
+              <div>
+              <input type="radio" name="radioBtn" id="yesCheck" />
+              Compare your webpage with another
+                  <p>
+                      Choose this option if you have a competitor website to which you wish to compare your own webpage</p>
+                  </div>
+              <div>
+                  <label>Enter competitor webpage URL:</label>
+                  <input type="text" name="url"><br><br>
+                  <div>
+                  <label>Enter competitor webpage URL:</label>
+                  <input type="text" name="url" placeholder="Optional"><br>
+                  <label>Enter competitor webpage URL:</label>
+                  <input type="text" name="url" placeholder="Optional"><br><br>
+                </div>
+              </div>
+                <div><br><br>
+              <input type="radio" name="radioBtn" id="clCheck"/>
+                <label for = "compareToURL">Compare your webpage with the top ten Google search results</label>
+                  <p>
+                      Choose this option if you hope to rank higher in Google search results. Note that you will be required to enter keywords and a location for this option</p>
+                  </div>
+              <div>
+                  <label>Enter your location:</label>
+                  <input type="text" name="location"><br><br>
+                  <label>Enter a keyword:</label>
+                  <input type="text" name="keyword"><br>
+              </div>
+              <div>
+                  <button class="buttonSub" type="submit" name="submit" id="compare" onclick="window.location.href ='getResults';" >Get My Result</button><br><br>
+
+                  <a href="../pages/getResults.html">Get My Results</a>
+
+        </div>
+      </form>
+      </div>
+    </section>
+      
+    <footer>
+        <div class="content-footer">
+            Company name:<br><br>
+            Contact information:
+        </div>
+    </footer>
+</body>
+</html>
