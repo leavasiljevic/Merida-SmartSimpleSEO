@@ -9,7 +9,7 @@ document.getElementById("compare").addEventListener("click", function (evt) {
   let sCompetitor1URL = document.getElementById("enterCompetitor1URL").value || null;
   let sCompetitor2URL = document.getElementById("enterCompetitor2URL").value || null;
   let sCompetitor3URL = "null";
-  let sOperation = "COMPARE_COMP"; //COMPARE_COMP or COMPARE_GOOGLE
+  let sOperation = "COMPARE_COMP";
   if (document.getElementById("enterCompetitor3URL")) {
     sCompetitor3URL = document.getElementById("enterCompetitor3URL").value || null;
   }
@@ -76,27 +76,28 @@ function CreateTableFromJSON(jsonData) {
 
     tr.insertCell(-1).innerHTML = resultRowHeaders[i];
 
-    tr.insertCell(-1).innerHTML = jsonData.clientURLResult[resultRowKeys[i]];
+    tr.insertCell(-1).innerHTML = "Your " + resultRowHeaders[i] + " " + "is " + jsonData.clientURLResult[resultRowKeys[i]];
 
     if (jsonData.competitor1URLResult) {
-      tr.insertCell(-1).innerHTML = jsonData.competitor1URLResult[resultRowKeys[i]];
+      tr.insertCell(-1).innerHTML = "Your competitors " + resultRowHeaders[i] + " " + "is " + jsonData.competitor1URLResult[resultRowKeys[i]];
     }
 
     if (jsonData.competitor2URLResult) {
-      tr.insertCell(-1).innerHTML = jsonData.competitor2URLResult[resultRowKeys[i]];
+      tr.insertCell(-1).innerHTML =  + resultRowHeaders[i] + " " + "is " + jsonData.competitor2URLResult[resultRowKeys[i]];
     }
 
     if (jsonData.competitor3URLResult) {
       tr.insertCell(-1).innerHTML = jsonData.competitor3URLResult[resultRowKeys[i]];
     }
 
-    tr.insertCell(-1).innerHTML = jsonData.average[resultRowKeys[i]];
+    tr.insertCell(-1).innerHTML = "Your competitors average " + resultRowHeaders[i] + " " + "is " + jsonData.average[resultRowKeys[i]];
 
   }
 
   var divContainer = document.getElementById("results");
-  divContainer.freeResult.innerHTML= "";
+  divContainer.innerHTML= "";
   divContainer.appendChild(table);
+  //document.getElementById("results").innerHTML = table;
 }
 
 

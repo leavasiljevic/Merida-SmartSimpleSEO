@@ -211,9 +211,11 @@ function parseWebPage(sURL, sKeyword) {
                 var h5TagCount = $("h5").length;
                 var h6TagCount = $("h6").length;
                 var imgTagCount = $("img").length;
+                //var keywordCount = $("keyword").length;
                 var linkTagCount = $("a").length;
                 var boldTagCount = $("b").length;
                 var italicTagCount = $("i").length;
+               // var titleTag = $("title").length;
 
 
                 jsonResult.title = $("title").html();
@@ -230,6 +232,7 @@ function parseWebPage(sURL, sKeyword) {
                 jsonResult.boldTag = boldTagCount;
                 jsonResult.italicTag = italicTagCount;
                 jsonResult.titleTag = keywordTitleCount;
+                
                 // console.log("Result on the server is" + JSON.stringify(jsonResult));
                 resolve(jsonResult);
             })
