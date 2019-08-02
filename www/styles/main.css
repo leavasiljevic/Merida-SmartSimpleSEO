@@ -12,10 +12,10 @@ html {
   }
   header {
     background-color: #001133;
-    padding: 30px;
-    font-size: 20px;
+    padding: .5em;
+    font-size: 2em;
     color: white;
-    height: 80px;
+    height: 6em;
   }
 
   .reportHeader{
@@ -44,7 +44,7 @@ a:hover, a:active { text-decoration: none; color:black }
   }
   
   footer{
-    position:fixed;
+    position:relative;
     left:0px;
     bottom:0px;
     height:30px;
