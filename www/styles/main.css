@@ -52,7 +52,7 @@ a:hover, a:active { text-decoration: none; color:black }
     background-color: #001133;
     color: white;
     text-align: left;
-    height: 140px;
+    height: 6em;
   }
 
 .content-footer{
@@ -76,9 +76,8 @@ margin: 2em;
 }
 
 .button {
-    position: absolute;
-    top: 60%;
-    left: 40%;
+    position: relative;
+    margin: auto;
     width: 20em;
     height: 4em;
     background-color: black;
