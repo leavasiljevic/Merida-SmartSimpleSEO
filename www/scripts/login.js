@@ -140,5 +140,7 @@ function login(){
 //     else {
 //         document.getElementById("signUpError").innerHTML = "The passwords don't seem to match! Please try again";
 //     }
-});
+//});
+///////////////////
+///////////// Verify User
 

@@ -275,6 +275,7 @@ tr:nth-child(even) {
   background-color: black;
   color: white;
   font-size: 18px;
+  margin-right:.4em;
 }
 
 #printBtn{
@@ -283,7 +284,16 @@ tr:nth-child(even) {
   background-color: black;
   color: white;
   font-size: 18px;
+  margin-right:.4em;
+}
 
+#runAnother{
+  width: 200px;
+  height: 30px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
+  margin-right:.4em;
 }
 
 .circle{
