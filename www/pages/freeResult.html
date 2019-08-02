@@ -4,22 +4,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../styles/normalize.css">
 <link rel="stylesheet" href="../styles/main.css">
+<script src="../index.js"></script>
 
-        
-<!--Javascript function to save data inside 'printSEOResults' div -->
-    <script language="javascript" type="text/javascript">
-        function printDiv(divID) 
-		{
-            var divElements = document.getElementById(divID).innerHTML;
-            var oldPage = document.body.innerHTML;
-            document.body.innerHTML = 
-              "<html><head><title></title></head><body>" + 
-              divElements + "</body>";
-            window.print();
-            document.body.innerHTML = oldPage;
-        }
-    </script>
-    
 
 <head>
     <title>Result</title>  
@@ -39,7 +25,7 @@
         </div>
     </header>
     
-      <div class='printFreeSEOResults' id='printFreeSEOResults'>
+    <div class='printFreeSEOResults' id='printFreeSEOResults'>
           
         <h4>Your Page Analysed</h4>
 
@@ -61,7 +47,7 @@
               <td></td>
             </tr>
             </table> -->
-        </div>
+    </div>
     
           <div class="middle">
             <button id="runAnother">Run Another Report</button>

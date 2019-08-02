@@ -6,20 +6,6 @@
 <link rel="stylesheet" href="../styles/main.css">
 <script src="../index.js"></script>
 
-<!--Javascript function to save data inside 'printSEOResults' div -->
-    <script language="javascript" type="text/javascript">
-        function printDiv(divID) 
-		{
-            var divElements = document.getElementById(divID).innerHTML;
-            var oldPage = document.body.innerHTML;
-            document.body.innerHTML = 
-              "<html><head><title></title></head><body>" + 
-              divElements + "</body>";
-            window.print();
-            document.body.innerHTML = oldPage;
-        }
-    </script>
-    
 <head>
     <title>Results</title>  
 </head>

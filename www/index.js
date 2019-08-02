@@ -55,6 +55,16 @@ document.getElementById("compare").addEventListener("click", function (evt) {
     });
 })
 
+  // Javascript function to save data inside 'printSEOResults', 'printFreeSEOResults' and 'printAdminReport' div
+    function printDiv(divID) {
+      var divElements = document.getElementById(divID).innerHTML;
+      var oldPage = document.body.innerHTML;
+      document.body.innerHTML =
+        "<html><head><title></title></head><body>" +
+        divElements + "</body>";
+      window.print();
+      document.body.innerHTML = oldPage;
+    }
 
 // function CreateTableFromJSON(jsonData) {
 
