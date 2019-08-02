@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../styles/normalize.css">
+<link rel="stylesheet" href="../styles/main.css">
+<script src="../index.js"></script>
+
+
+<head>
+    <title>Result</title>  
+</head>
+
+<body>
+    <header>
+        <div class="content">
+            <h1>Smart Simple SEO</h1>
+            <div class="nav-bar">
+                <a href="../index.html" >Home</a>
+                <a href="../pages/inputPage.html"  class="current">Try For Free</a>
+                <a href="../pages/signUp.html">Buy a package</a>
+                <a href="../pages/login.html">Login/Sign up</a>
+                <a href="../pages/contact.html">Contact</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class='printFreeSEOResults' id='printFreeSEOResults'>
+          
+        <h4>Your Page Analysed</h4>
+
+        <div id="results">
+            <!-- document.getElement = "table"; -->
+        </div>
+
+           <!-- <table style="width:50% align=center">
+            <tr>
+              <th colspan="4">URL:</th>
+              <tr>
+                  <td scope="col">Element</td>
+                  <td scope="col" colspan="2">Findings</td>
+                  <td scope="col">Analysis</td>
+              </tr>
+              <td></td>
+              <td>Your Page</td>
+              <td>Average</td>
+              <td></td>
+            </tr>
+            </table> -->
+    </div>
+    
+          <div class="middle">
+            <button id="runAnother">Run Another Report</button>
+            <button id="saveBtn">Save</button>
+              
+            <form id="form1" runat='server'>		
+	           <input type="button" id="saveBtn" value="Print/Save" onclick= "javascript:printDiv('printFreeSEOResults')" />    
+            </form>
+        </div>
+        <div class="midCircle">
+            <div class="circle">
+                <label>Package</label>
+                <button id="buyBtn">Buy Package</button>
+            </div>
+        </div>
+    
+        <a href="../pages/payment.html">Buy package</a>
+    <footer>
+        <div class="content-footer">
+            Company name:<br><br>
+            Contact information:
+        </div>
+    </footer>
+</body>
+<script src="../freeResult.js"></script>
+</html>

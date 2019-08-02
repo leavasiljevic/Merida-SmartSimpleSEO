@@ -1,0 +1,356 @@
+html {
+    height: 100%;
+    position: relative;
+  }
+  
+  body {
+    margin: 0px;
+      padding: 0px;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 12pt;
+      font-weight: 300;
+  }
+  header {
+    background-color: #001133;
+    padding: .5em;
+    font-size: 2em;
+    color: white;
+    height: 6em;
+  }
+
+  .reportHeader{
+    margin: 0 0 0 10em;
+  }
+  
+  .nav-bar{
+      margin-left: 30em;
+      font-size: 25px;
+      display:inline-block;margin-right:10px;
+      position: static;
+  }
+
+a:visited { text-decoration: none; color:red; }
+a:hover { text-decoration: none; color:blue; }
+a:focus { text-decoration: none; color:yellow; }
+a:hover, a:active { text-decoration: none; color:black }
+
+  .nav-bar a{
+    color: white;
+  
+  }
+  
+  .content h1{
+    display:inline-block;
+  }
+  
+  footer{
+    position:relative;
+    left:0px;
+    bottom:0px;
+    height:30px;
+    width:100%;
+    background-color: #001133;
+    color: white;
+    text-align: left;
+    height: 6em;
+  }
+
+.content-footer{
+margin: 2em;
+  }
+  
+  .form01{
+
+    text-align: left;
+    margin: 5em 10em;
+  }
+  
+  .wrapper {
+    text-align: center;
+    
+}
+
+.content h4{
+    text-align: center;
+    font-size: 24px;
+}
+
+.button {
+    position: relative;
+    margin: auto;
+    width: 20em;
+    height: 4em;
+    background-color: black;
+    color: white;
+}
+
+.buttonSub{
+    width: 20em;
+    height: 4em;
+    background-color: black;
+    color: white;
+}
+
+.userbtn{
+    width: 20em;
+    height: 4em;
+    background-color: black;
+    color: white;
+
+}
+.column input{
+    margin: .5em;
+}
+
+section{
+    max-width: max-content;
+    margin: auto;
+    padding-top: 40px;
+}
+
+form{
+    max-width: 100%;
+    text-align: center;
+}
+
+
+
+.results {
+    max-width: 80%;
+    margin: auto;
+    padding-top: 40px;
+}
+.row2{
+    width: 20em;
+    height: 4em;
+    background-color: black;
+    color: white;
+}
+
+.boxed {
+  border: 1px solid White ;
+  width: 18em;
+  height: 30px;
+}
+
+.piechart{
+  width: 80%; 
+  height: 80%;
+  float: right;
+
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+}
+
+.column1 {
+  float: left;
+  width: 33.33%;
+  margin: 3em 0 0 10em;
+}
+
+.column2 {
+  float: left;
+  width: 33.33%;
+  margin: 4em 0 0 10em;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* The sidepanel menu */
+.sidepanel {
+  height: 250px; /* Specify a height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+}
+
+/* The sidepanel links */
+.sidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidepanel a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style the button that is used to open the sidepanel */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+#parent {
+  display: table;
+  width: 100%;
+}
+#form_login {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#form_admin{
+  margin-left: 15em;
+  text-align: left;
+}
+
+.signUp {
+  height: 2em;
+  width: 20em;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+#reportF{
+  text-align: center;
+}
+
+.middle{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#saveBtn{
+  width: 200px;
+  height: 30px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
+  margin-right:.4em;
+}
+
+#printBtn{
+  width: 200px;
+  height: 30px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
+  margin-right:.4em;
+}
+
+#runAnother{
+  width: 200px;
+  height: 30px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
+  margin-right:.4em;
+}
+
+.circle{
+  width:200px; 
+  height:200px; 
+  background-color:gray; 
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30;
+}
+
+.midCircle{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8em;
+}
+
+#freeBtn{
+  width: 150px;
+  height: 30px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
+}
+
+.paidbtn{
+    position: absolute;
+    top: 75%;
+    left: 40%;
+    width: 20em;
+    height: 4em;
+    background-color: black;
+    color: white;
+
+}
+.terms{
+margin:5em;
+
+}
+
+h2{
+  text-align: center;
+}
+
+.row{
+  margin: 5em 5em 5em 5em;
+}
+
+.imgbottom{
+  margin: 0 0 15em 0;
+}
+
+.contact{
+  margin: 5em 20em 0 20em;
+}
+
+/*# sourceMappingURL=/main.d2070829.css.map */
