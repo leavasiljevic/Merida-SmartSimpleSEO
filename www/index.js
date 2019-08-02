@@ -2,7 +2,6 @@
 
 document.getElementById("compare").addEventListener("click", function (evt) {
   evt.preventDefault();
-
   let sClientURL = document.getElementById("enterURL").value;
   let sKeyword = document.getElementById("enterKeyword").value || null;
   let sLocation = document.getElementById("enterLocation").value || null;
@@ -34,15 +33,12 @@ document.getElementById("compare").addEventListener("click", function (evt) {
       }
 
       return response.text();
-    }
-    )
+    })
     .then(function (data) {
 
       var jsonResult = JSON.parse(data);
       this.CreateTableFromJSON(jsonResult);
-
-    }
-    )
+    })
     .catch(function (err) {
       console.log('Fetch Error :-S', err);
     });

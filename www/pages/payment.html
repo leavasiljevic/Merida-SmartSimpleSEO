@@ -24,18 +24,47 @@
             </div>
         </div>
     </header>
-    
-    <br><br><br> 
-    <div>
+    <br><br><br><br>
+
+    <form id="payPall">
 
          <button class="buttonPay" type="pay" name="pay" id="payPall" onclick="window.location.href = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NV9XLM64EAAGL';">Pay with PayPall</button>
-
         <br><br>
-
         <a href="../pages/dashboard.html">Go to dashboard</a>
 
-        </div>
+    </form>
+    <form id="creditCardForm">
+        <br><br>
+        <br> 
+        <label for="nameOnCard">Name on Card::</label><br>
+        <input type="text" name="nameOnCard" ><br><br>
 
+        <label for="cardNumber">Credit Card Number: </label><br> 
+        <input type="text" name="cardNumber" placeholder="#### #### #### ####"><br><br>
+         
+        <label for="expirationMonth">Expiration Month:</label>
+        <input type="text" name="expirationMonth" maxlength="2" size="5" placeholder="MM"><br><br>
+
+        <label for="expirationYear">Expiration Year:</label>
+        <input type="text" name="expirationYear" maxlength="4" size="5" placeholder="YYYY"><br><br>
+
+        <label for="CVV">CVV:</label>
+        <input type="text" name="cww" maxlength="2" size="5" placeholder="###"><br><br>
+        
+        <label for="country:">Country:</label>
+        <select name="country">
+            <option value="Canada"> Canada</option>
+            <option value="US"> United State</option>
+        </select> <br> <br>
+
+        <label for="postalCode:">Postal Code:</label>
+        <input type="text" name="postalCode" size="8" ><br><br>
+    
+    
+        <input type="button" id="cancel" value="Cancel">
+        <input type="button" id="save" value="Save">
+    
+    </form>
 
     <footer>
         <div class="content-footer">

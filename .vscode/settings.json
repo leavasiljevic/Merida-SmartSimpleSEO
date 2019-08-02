@@ -6,5 +6,6 @@
     ],
     "atlascode.jira.workingSite": {
         "baseUrlSuffix": "atlassian.net"
-    }
+    },
+    "editor.formatOnPaste": true
 }
