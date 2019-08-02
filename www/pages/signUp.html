@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../styles/normalize.css">
+<link rel="stylesheet" href="../styles/main.css">
+
+
+<head>
+    <title>Sign Up</title>  
+</head>
+
+<body>
+    <header>
+        <div class="content">
+            <h1>Smart Simple SEO</h1>
+            <div class="nav-bar">
+                <a href="../index.html" >Home</a>
+                <a href="../pages/inputPage.html">Try For Free</a>
+                <a href="../pages/signUp.html">Buy a package</a>
+                <a href="../pages/login.html" class="current">Login/Sign up</a>
+                <a href="../pages/contact.html">Contact</a>
+            </div>
+        </div>
+    </header>
+    <form>
+        <div class="row">
+            <div class="column">
+                <h2>Package</h2>
+                <hr style="border: 2px solid black;" width="50%" />
+                <p>Package information</p>
+                <img src="" alt="" height="42" width="42">
+            </div>
+            <div class="column">
+                <h2>Create New Account</h2>
+
+                <hr style="border: 2px solid black;" width="80%" />
+                <label for="firstName"><b></b></label>
+                <input class="signUp" type="text" placeholder="Enter Your FirstName" name="firstName" required>
+                <label for="firstName"><b></b></label>
+                <input class="signUp" type="text" placeholder="Enter Your LastName" name="lastName" required><br>
+                <label for="email"><b></b></label>
+                <input class="signUp" type="text" placeholder="Enter Email" name="email" required><br>
+                <label for="psw"><b></b></label>
+                <input class="signUp" type="password" placeholder="Enter Password" name="psw" required><br>
+                <label for="psw-repeat"><b></b></label>
+                <input class="signUp" type="password" placeholder="Repeat Password" name="psw-repeat" required><br><br>
+                <a href="../pages/terms.html">Terms of Use</a> &nbsp;
+                <a href="../pages/policy.html">Privacy Policy</a><br><br>
+                <button class="buttonSub" type="submit" name="submit" id="signUp" onclick="window.location.href ='payment.html';" >Submit</button><br><br>
+                <a href="../pages/payment.html">Go to Payment Page</a>
+                <img src="" alt="" height="42" width="42">
+            </div>
+        </div>
+     </form>
+
+    <footer>
+        <div class="content-footer">
+            Company name:<br><br>
+            Contact information:
+        </div>
+    </footer>
+</body>
+<script src="../index.js"></script>
+<script src="../scripts/login.js"></script>
+</html>
