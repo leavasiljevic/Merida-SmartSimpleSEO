@@ -15,27 +15,132 @@ function login(){
 
 // firebase.initializeApp(config);
 
-// /////Login
+//Sign Up 
 
-// document.getElementById("loginSubmit").addEventListener("click", evt => {
-//     evt.preventDefault();
-//     const userEmail = document.getElementById("emailUser").value;
-//     const password = document.getElementById("passwordUser").value;
-//     firebase.auth().signInWithEmailAndPassword(userEmail, password).then(
-//         () => {
-//             const sUser = firebase.auth().currentUser.uid;
-//            var  ref = firebase.database().ref("users/");
-//            console.log(sUser);
-//             ref.on("value", redirect, errorData);
-//         }).catch(function (error) {
-//             // Handle Errors here.
-//             var errorCode = error.code;
-//             var errorMessage = error.message;
-//             document.getElementById("loginError").innerHTML = "Something went wrong: " + errorCode + ". "+ errorMessage;
-//             console.log("Error:" + errorCode + "." + errorMessage);
-//         });
 
-// });
+document.getElementById("submitSignUp").addEventListener("click", evt => {
+    evt.preventDefault();
+    const email = document.getElementById("emailNew").value;
+    const tryPassword = document.getElementById("passwordNew").value;
+    const confirmedPassword = document.getElementById("confirmPassword").value;
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+
+    if (validateEmail(email) || email != "") {
+        if (validateTextOnly(firstName) || firstName != "") {
+            if (validateTextOnly(lastName) || lastName != "") {
+                if (tryPassword == confirmedPassword || tryPassword != "" || confirmedPassword != "") {
+                    const password = tryPassword;
+                    if (validatePassword(password)) {
+                        const dateCreated = Date.today().toFormat("YYYY-MM-DD");
+                        firebase.auth().createUserWithEmailAndPassword(email, password).then(
+                            () => {
+                                //Save information for the user
+                                const sUser = firebase.auth().currentUser.uid;
+                                firebase.database().ref("user/" + sUser).set({
+                                    userType: "pending",
+                                    email: email,
+                                    password: password,
+                                    firstName: firstName,
+                                    lastName: lastName,
+                                    dateCreated: dateCreated
+                                });
+                                //Then redirect to payment page
+                                document.getElementById("signUpError").innerHTML = "It worked";
+                                // window.location.replace("../pages/payment.html");
+                            }
+                        ).catch(function (error) {
+                            // Handle Errors here.
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            document.getElementById("signUpError").innerHTML = "Sign Up Error: " + errorCode + ". " + errorMessage;
+                            console.log("Something went wrong:" + errorCode + "." + errorMessage);
+                        });
+                    }
+                    else {
+                        document.getElementById("signUpError").innerHTML = "The password entries don't seem to match! Please try again";
+                    }
+                } else {
+                    document.getElementById("signUpError").innerHTML = "The password is too short. Try something that is at least 6 characters long.";
+                }
+            } else {
+                document.getElementById("signUpError").innerHTML = "Last name must be filled and can only be letters";
+            }
+        } else {
+            document.getElementById("signUpError").innerHTML = "First name must be filled can only be letters";
+        }
+    } else {
+        document.getElementById("signUpError").innerHTML = "Looks like either that wasn't an email address or that field was left empty... Let's try again!";
+    }
+});
+
+//Regex for Email - Validate email is well formed
+function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+function validateTextOnly(name) {
+    var re = /^[a-zA-Z]+$/;
+    return re.test(name);
+}
+
+//Password must be at least 6 letters long
+function validatePassword(password) {
+    var re = /^(?=.{6,})/;
+    return re.test(password);
+}
+
+//If payment is successful
+document.getElementById("payPal").addEventListener("click", evt => {
+    const dateReceived = Date.today().toFormat("YYYY-MM-DD");
+    const sUser = firebase.auth().currentUser.uid;
+    firebase.database().ref("user/" + sUser + "/payment/" + dateReceived).set({
+        paymentMethod: "PayPal",
+        verificationCode: "code"
+    }).then(() =>
+        //window.location.replace("../pages/paidUserDash.html");
+        console.log("redirect to dashboard")
+    ).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        document.getElementById("signUpError").innerHTML = "Something went wrong: " + errorCode + errorMessage;
+        console.log("Error:" + errorCode + "." + errorMessage);
+    });
+})
+
+//Login
+document.getElementById("loginSubmit").addEventListener("click", evt => {
+    evt.preventDefault();
+    const userEmail = document.getElementById("emailUser").value;
+    const password = document.getElementById("passwordUser").value;
+    if (validateEmail(userEmail) || userEmail != "") {
+        if (validatePassword(password) || password != "") {
+            firebase.auth().signInWithEmailAndPassword(userEmail, password).then(
+                () => {
+                    const sUser = firebase.auth().currentUser.uid;
+                    //var  ref = firebase.database().ref("users/");
+                    console.log(sUser);
+                    // ref.on("value", redirect, errorData);
+                    //window.location.replace("../pages/paidUserDash.html");
+                }).catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    document.getElementById("loginError").innerHTML = "Something went wrong: " + errorCode + ". " + errorMessage;
+                    console.log("Error:" + errorCode + "." + errorMessage);
+                });
+        }
+        else {
+            document.getElementById("loginError").innerHTML = "That password seems too short. Try again";
+        }
+    }
+    else {
+        document.getElementById("loginError").innerHTML = "That doesn't look like an email address. Try again!";
+    }
+
+});
 
 // function redirect(data){
 //     const user =data.val();
@@ -45,7 +150,7 @@ function login(){
 //         window.location.replace("../pages/payment.html");
 //     }
 //     else if (userType == "paidUser"){
-//         window.location.replace("../pages/dashboard.html");
+//         window.location.replace("../pages/paidUserDash.html");
 //     }
 //     else if (userType == "admin"){
 //         window.location.replace("../pages/adminDash.html");
@@ -58,114 +163,66 @@ function login(){
 //     console.log("The read failed: " + errorObject.code);
 // };
 
+//Logout
+document.getElementById("logout").addEventListener("click", () => {
+    firebase.auth().signOut().then(() => {
+        //Send the user back to the home page
+        //window.location.replace("../index.html");
+        document.getElementById("userMessage").innerHTML = "You have been logged out";
+    }).catch(() => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        document.getElementById("logoutError").innerHTML = "Something went wrong: " + errorCode + ". " + errorMessage;
+        console.log("Error:" + errorCode + "." + errorMessage);
+    });
+});
 
-// ////////
+//Try for free (on click of try for free)
+document.getElementById("tryForFree").addEventListener("click", evt => {
+    evt.preventDefault();
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            //check user type 
+            const sUser = firebase.auth().currentUser.uid;
+            //    const userType =firebase.database().ref("users/"+sUser+ "/userType").val();
+            //    console.log(userType);
+        }
+        else {
+            firebase.auth().signInAnonymously().then(() => {
+                const sUser = firebase.auth().currentUser.uid;
+                const dateCreated = Date.today().toFormat("YYYY-MM-DD");
+                firebase.database().ref("user/" + sUser).set({
+                    userType: "freeUser",
+                    ipAddress: "insertIPHere",
+                    dateCreated: dateCreated
+                })
+                //window.location.href="../pages/freeTry";
+                // console.log("logged in");
+            }).catch(() => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                document.getElementById("loginError").innerHTML = errorCode + "Something went wrong: " + errorMessage;
+                console.log("Error:" + errorCode + "." + errorMessage);
+            });
+        }
+    });
 
-// //////////Forgot Password
+});
 
-// document.getElementById("submitPasswordReset").addEventListener("click", evt =>{
-//     evt.preventDefault();
-//     var userEmail=document.getElementById("emailForResend").value;
-//     firebase.auth().sendPasswordResetEmail(userEmail).then(()=>{
-//         document.getElementById("userMessage").innerHTML="Password reset link sent!";
-//          window.location.replace("../pages/login.html");
-//     }).catch(()=>{
-//         var errorCode = error.code;
-//         var errorMessage = error.message;
-//         document.getElementById("userMessage").innerHTML = "Something went wrong: "+ errorCode + ". " + errorMessage;
-//         console.log("Error:" + errorCode + "." + errorMessage);
-//     });
-// });
+//Password reset
+document.getElementById("submitPasswordReset").addEventListener("click", evt => {
+    evt.preventDefault();
+    var userEmail = document.getElementById("emailForResend").value;
+    firebase.auth().sendPasswordResetEmail(userEmail).then(() => {
+        document.getElementById("userMessage").innerHTML = "Password reset link sent!";
+    }).catch(() => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        document.getElementById("userMessage").innerHTML = "Something went wrong: " + errorCode + ". " + errorMessage;
+        console.log("Error:" + errorCode + "." + errorMessage);
+    });
+});
 
-//////////////////
-
-
-// ///////////If payment is successful
-
-// document.getElementById("payPal").addEventListener("click", evt => {
-//     const dateReceived = Date.today().toFormat("YYYY-MM-DD");
-//     firebase.database().ref("user/" + sUser + "/payment").set({
-//         paymentMethod: "PayPal",
-//         verificationCode: "code",
-//         dateReceived: dateReceived
-//     }).then(() =>
-//         //window.location.replace("../pages/paidUserDash.html");
-//         console.log("redirect to dashboard")
-//     ).catch(function (error) {
-//         // Handle Errors here.
-//         var errorCode = error.code;
-//         var errorMessage = error.message;
-//         document.getElementById("signUpError").innerHTML = "Something went wrong: " + errorCode + errorMessage;
-//         console.log("Error:" + errorCode + "." + errorMessage);
-//     });
-// })
-
-///////////////
-
-// /////////////Sign Up 
-// document.getElementById("submitSignUp").addEventListener("click", evt => {
-//     evt.preventDefault();
-//     const email = document.getElementById("emailNew").value;
-//     const tryPassword = document.getElementById("passwordNew").value;
-//     const confirmedPassword = document.getElementById("confirmPassword").value;
-//     const firstName = document.getElementById("firstName").value;
-//     const lastName = document.getElementById("lastName").value;
-
-//     if (validateEmail(email || email == "")) {
-//         if (validateTextOnly(firstName) || firstName == "") {
-//             if (validateTextOnly(lastName)) {
-//                 if (tryPassword == confirmedPassword || tryPassword == "" || confirmedPassword == "") {
-//                     const password = tryPassword;
-//                     const dateCreated = Date.today().toFormat("YYYY-MM-DD");
-//                     firebase.auth().createUserWithEmailAndPassword(email, password).then(
-//                         () => {
-//                             //Save information for the user
-//                             const sUser = firebase.auth().currentUser.uid;
-//                             firebase.database().ref("user/" + sUser).set({
-//                                 userType: "pending",
-//                                 email: email,
-//                                 password: password,
-//                                 firstName: firstName,
-//                                 lastName: lastName,
-//                                 dateCreated: dateCreated
-//                             });
-//                             //Then redirect to payment page
-//                             document.getElementById("signUpError").innerHTML = "It worked";
-//                             // window.location.replace("../pages/payment.html");
-//                         }
-//                     ).catch(function (error) {
-//                         // Handle Errors here.
-//                         var errorCode = error.code;
-//                         var errorMessage = error.message;
-//                         document.getElementById("signUpError").innerHTML = "Sign Up Error: " + errorCode + ". " + errorMessage;
-//                         console.log("Something went wrong:" + errorCode + "." + errorMessage);
-//                     });
-//                 }
-//                 else {
-//                     document.getElementById("signUpError").innerHTML = "The passwords don't seem to match! Please try again";
-//                 }
-//             }
-//             else {
-//                 document.getElementById("signUpError").innerHTML = "Last name must be filled and can only be letters";
-//             }
-//         } else {
-//             document.getElementById("signUpError").innerHTML = "First name must be filled can only be letters";
-//         }
-//     } else {
-//         document.getElementById("signUpError").innerHTML = "Looks like either that wasn't an email address or that field was left empty... Let's try again!";
-//     }
-// });
-
-// //Regex for Email - Validate email is well formed
-// function validateEmail(email) {
-//     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//     return re.test(email);
-// }
-
-// function validateTextOnly(name) {
-//     var re = /^[a-zA-Z]+$/;
-//     return re.test(name);
-// }
 ///////////////////
 ///////////// Verify User
 
