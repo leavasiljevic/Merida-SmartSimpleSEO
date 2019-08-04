@@ -125,7 +125,7 @@ window.onload = function () {
 };
 
 function CreateTableFromJSON(jsonData) {
-  var resultTableHeaders = ["Page Elements", "Client's Page Results", "Competitor 1 Page Results", "Competitor 2 Page Results", "Average of Competitors Results"];
+  var resultTableHeaders = ["Page Elements", "Client's Page Results", "Average of Competitors Results"];
   var resultRowHeaders = ["Title", "Word Count", "H1 Tag", "H2 Tag", "H3 Tag", "H4 Tag", "H5 Tag", "H6 Tag", "Img Tag Count", "Link Tag", "Keywords in Meta Tag", "Bold Tag", "Italic Tag", "Keywords in Title Tag"];
   var resultRowKeys = ["title", "wordCount", "h1Tag", "h2Tag", "h3Tag", "h4Tag", "h5Tag", "h6Tag", "imgTag", "linkTag", "keyword", "boldTag", "italicTag", "titleTag"];
   var table = document.createElement("table");
@@ -189,7 +189,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55100" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49354" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -4,7 +4,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/normalize.b6182ef6.css">
 <link rel="stylesheet" href="/main.d2070829.css">
-<script src="/src.e31bb0bc.js"></script>
 
 
 <head>
@@ -30,31 +29,17 @@
         <h4>Your Page Analysed</h4>
 
         <div id="results">
-            <!-- document.getElement = "table"; -->
+            
         </div>
 
-           <!-- <table style="width:50% align=center">
-            <tr>
-              <th colspan="4">URL:</th>
-              <tr>
-                  <td scope="col">Element</td>
-                  <td scope="col" colspan="2">Findings</td>
-                  <td scope="col">Analysis</td>
-              </tr>
-              <td></td>
-              <td>Your Page</td>
-              <td>Average</td>
-              <td></td>
-            </tr>
-            </table> -->
     </div>
     
           <div class="middle">
             <button id="runAnother">Run Another Report</button>
-            <button id="saveBtn">Save</button>
+            <button type="button" id="saveBtn" value="Save" onclick="window.print()">Save</button>
               
-            <form id="form1" runat="server">		
-	           <input type="button" id="saveBtn" value="Print/Save" onclick="javascript:printDiv('printFreeSEOResults')">    
+            <form id="form1">		
+	           <button type="button" id="printResults" value="Print" onclick="window.print()">Print</button>    
             </form>
         </div>
         <div class="midCircle">
@@ -74,5 +59,5 @@
         Tel: (226) 250-0112</div>
 </footer>
 </body>
-<script src="/freeResult.8bd1d3d6.js"></script>
+<script src="/freeResult.1dd4bc0b.js"></script>
 </html>
