@@ -2,72 +2,85 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../styles/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../styles/main.css">
 
 
+
 <head>
-    <title>Admin Report</title>  
+        <title>Admin Report</title>
 </head>
-
-<body>
-    <header>
-        <div class="content">
-            <h1>Smart Simple SEO</h1>
-            <div class="nav-bar">
-                <a href="../index.html" >Home</a>
-                <a href="../pages/dashboard.html" class="current">Dashboard</a>
-                <a href="../pages/adminReport.html">Report</a>
-                <a href="../pages/accountSetting.html">Account Settings</a>
-                <a href="../index.html">LogOut</a>
-                <a href="../pages/contact.html">Contact</a>
-            </div>
-        </div>
-    </header>
-    <div class='printAdminReport' id='printAdminReport'>
-            <div class="reportHeader">
-                <h2>Your Report is Ready</h2>
-
-                <h4>From:<label id=reportDate>&nbsp;</label>To:<label id=reportDate></label></h4>
-                <img src="" alt="" height="42" width="42">
-                <table style="width:90%">
-                    <tr>
-                        <th>IP Address</th>
-                        <th>Email Address</th>
-                        <th>Date and Time</th>
-                    </tr>
-                    <tr>
-                        <td id="ip1">1</td>
-                        <td id="email1">1</td>
-                        <td id="date1">1</td>
-                    </tr>
-                    <tr>
-                        <td id="ip2">2</td>
-                        <td id="email2">2</td>
-                        <td id="date2">2</td>
-                    </tr>
-                    <tr>
-                        <td id="ip3">3</td>
-                        <td id="email3">3</td>
-                        <td id="date3">3</td>
-                    </tr>
-                </table><br><br>
-                Generate a Report From:<input lass="signUp" type="date" name="fromDate" required>&nbsp;
-                To:<input class="signUp" type="date" name="toDate" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </div>
-    </div>
-    <br><br>
-    <form id="form1" runat='server'>		
-	           <input type="button" id="saveBtn" value="Print/Save Report" onclick= "javascript:printDiv('printAdminReport')" />    
-     </form>
     
-    <footer>
-        <div class="content-footer">
-            Company name:Smashing Pixels Inc<br><br>
-            Contact information: 446 Grey Street, Unit 302
-            (with Ball Media)
-            Brantford , ON N3S 7L6
-            Tel: (226) 250-0112</div>
-    </footer>
-</body>
+    
+<body>
+     <div id="page-container">
+     <header>
+        
+                                <div class="topnav" id="myTopnav">
+                                    <a class="logo">Smart Simple SEO</a>
+                                <a href="../index.html">Home</a>
+                                <a id="dashboardclick" href="#" class="active">Dashboard</a>
+                                <a href="../pages/login.html">Login/Sign up</a>
+                                <a href="#">Contact</a>
+                                      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                                          <i class="fa fa-bars"></i>
+                                    </a>
+                </div>
+        </header>
+         
+       <section>
+          <div id="content-wrap">
+    <form class="form02">
+            <div class="row">
+        <div class="column">
+            <h2>Your Report is Ready</h2>
+            <h4>From:<label id=reportDateFrom>&nbsp;</label>To:<label id=reportDateTo></label></h4>
+            <table>The Result Comes here!!!!</table>
+        </div>
+        <div class="column">
+            <img src="../images/dashReport01.jpg" alt="seo sign up" height="50%" width="50%">
+
+    </div>
+                   
+        </div>
+                 
+          </form>
+  
+        <div class="row2">
+                Generate Another Report From:<br><br>
+                From:<input class="signUp" type="date" name="fromDate">
+                To:<input class="signUp" type="date" name="toDate">
+                <button onclick="window.location.href = '../pages/adminReport.html';" class="userbtn" type="submit" name="submit" id="report">Done</button>
+              <button class="userbtn" type="submit" name="submit" id="print">Print</button>
+            <button class="userbtn" id="logout" href="#" class="logout">Log Out</button><br><br></div>
+              
+         
+             </div>
+       <table></table>
+      
+</section>
+<footer>
+    <div class="content-footer">
+        Company name:Smashing Pixels Inc<br><br>
+        Contact information: 446 Grey Street, Unit 302
+        (with Ball Media)
+        Brantford , ON N3S 7L6
+        Tel: (226) 250-0112</div>
+</footer>
+    </div>
+    
+    <script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+<script src="../scripts/logout.js"></script>
+<script src="../scripts/adminReport.js"></script>
+         </body>
+
 </html>

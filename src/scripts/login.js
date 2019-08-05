@@ -1,12 +1,3 @@
-// window.onload=login();
-
-// function login(){
-//     document.getElementById("loginSubmit").addEventListener("click", evt => {
-//     evt.preventDefault();
-//     window.location.replace("../pages/dashboard.html");
-// });
-// }
-
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
@@ -62,10 +53,9 @@ document.getElementById("loginSubmit").addEventListener("click", evt => {
             firebase.auth().signInWithEmailAndPassword(userEmail, password).then(
                 () => {
                     const sUser = firebase.auth().currentUser.uid;
-                    //var  ref = firebase.database().ref("users/");
-                    console.log(sUser);
-                    // ref.on("value", redirect, errorData);
-                    //window.location.replace("../pages/paidUserDash.html");
+                    //var userType=verifyUser(sUser);
+                    //console.log(userType);
+                    window.location.replace("../pages/dashboard.html");
                 }).catch(function (error) {
                     // Handle Errors here.
                     var errorCode = error.code;
@@ -105,20 +95,6 @@ function errorData(errorObject) {
     console.log("The read failed: " + errorObject.code);
 };
 
-//Logout
-document.getElementById("logout").addEventListener("click", () => {
-    firebase.auth().signOut().then(() => {
-        //Send the user back to the home page
-        //window.location.replace("../index.html");
-        document.getElementById("userMessage").innerHTML = "You have been logged out";
-    }).catch(() => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        document.getElementById("logoutError").innerHTML = "Something went wrong: " + errorCode + ". " + errorMessage;
-        console.log("Error:" + errorCode + "." + errorMessage);
-    });
-});
-
 //Try for free (on click of try for free)
 document.getElementById("tryForFree").addEventListener("click", evt => {
     evt.preventDefault();
@@ -151,19 +127,6 @@ document.getElementById("tryForFree").addEventListener("click", evt => {
 
 });
 
-//Password reset
-document.getElementById("submitPasswordReset").addEventListener("click", evt => {
-    evt.preventDefault();
-    var userEmail = document.getElementById("emailForResend").value;
-    firebase.auth().sendPasswordResetEmail(userEmail).then(() => {
-        document.getElementById("userMessage").innerHTML = "Password reset link sent!";
-    }).catch(() => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        document.getElementById("userMessage").innerHTML = "Something went wrong: " + errorCode + ". " + errorMessage;
-        console.log("Error:" + errorCode + "." + errorMessage);
-    });
-});
 
 // ///////////////////
 // ///////////// Verify User

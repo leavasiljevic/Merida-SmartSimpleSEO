@@ -2,36 +2,42 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../styles/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../styles/main.css">
 
 
 <head>
-    <title>Terms Conditions</title>  
+        <title>Terms</title>
 </head>
     
-<body>
-    <header>
-        <div class="content">
-            <h1>Smart Simple SEO</h1>
-            <div class="nav-bar">
-                <a href="../index.html" >Home</a>
-                <a href="../pages/dashboard.html">Dashboard</a>
-                <a href="../pages/login.html">Login/Sign up</a>
-                <a href="../pages/contact.html">Contact</a>
-            </div>
-        </div>
-    </header>
-        
     
-    <div class="terms">
-    <h2>Terms Conditions</h2>
-
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+<body>
+     <div id="page-container">
+     <header>
+        
+                                <div class="topnav" id="myTopnav">
+                                    <a class="logo">Smart Simple SEO</a>
+                                <a href="../index.html">Home</a>
+                                <a id="dashboardclick" href="#">Dashboard</a>
+                                <a href="../pages/login.html" class="active">Login/Sign up</a>
+                                <a href="#">Contact</a>
+                                      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                                          <i class="fa fa-bars"></i>
+                                    </a>
+                </div>
+        </header>
+         
+  
+             <section>
+          <div id="content-wrap">
+    <form class="form02">
+        <h4>Term of Use:</h4>
+          
+        </form>
     </div>
-<br><br>
+</section>
+            
 
-    <button class="signUp" type="submit" name="submit" onclick="window.location.href = '../pages/signUp.html';">Accept</button>
 
 <footer>
     <div class="content-footer">
@@ -41,5 +47,18 @@
         Brantford , ON N3S 7L6
         Tel: (226) 250-0112</div>
 </footer>
-</body>
+    </div>
+    
+    <script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+         </body>
+
 </html>

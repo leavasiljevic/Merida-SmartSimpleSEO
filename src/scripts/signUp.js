@@ -8,7 +8,6 @@ firebase.initializeApp(config);
 
 //Sign Up 
 
-
 document.getElementById("submitSignUp").addEventListener("click", evt => {
     evt.preventDefault();
     const email = document.getElementById("emailNew").value;
@@ -35,10 +34,10 @@ document.getElementById("submitSignUp").addEventListener("click", evt => {
                                     firstName: firstName,
                                     lastName: lastName,
                                     dateCreated: dateCreated
+                                }).then(() => {
+                                    //Then redirect to payment page
+                                    window.location.replace("../pages/payment.html");
                                 });
-                                //Then redirect to payment page
-                                //document.getElementById("signUpError").innerHTML = "Sign Up Worked";
-                                window.location.replace("../pages/payment.html");
                             }
                         ).catch(function (error) {
                             // Handle Errors here.
@@ -46,6 +45,9 @@ document.getElementById("submitSignUp").addEventListener("click", evt => {
                             var errorMessage = error.message;
                             document.getElementById("signUpError").innerHTML = "Sign Up Error: " + errorCode + ". " + errorMessage;
                             console.log("Something went wrong:" + errorCode + "." + errorMessage);
+                            if (errorCode == "auth/email-already-in-use") {
+                                document.getElementById("signUpError").innerHTML = "It looks like you already have an account. Did you mean to <a href=\"../pages/login.html\">login</a> instead?";
+                            }
                         });
                     }
                     else {
@@ -81,3 +83,5 @@ function validatePassword(password) {
     var re = /^(?=.{6,})/;
     return re.test(password);
 }
+
+

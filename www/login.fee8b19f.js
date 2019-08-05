@@ -2571,7 +2571,7 @@ var FirebaseAppImpl = /** @class */ (function () {
      * Return a service instance associated with this app (creating it
      * on demand), identified by the passed instanceIdentifier.
      *
-     * NOTE: Currently storage is the only one that is leveraging this
+     * NOTE: Currently storage and functions are the only ones that are leveraging this
      * functionality. They invoke it by calling:
      *
      * ```javascript
@@ -2599,6 +2599,22 @@ var FirebaseAppImpl = /** @class */ (function () {
             this.services_[name][instanceIdentifier] = service;
         }
         return this.services_[name][instanceIdentifier];
+    };
+    /**
+     * Remove a service instance from the cache, so we will create a new instance for this service
+     * when people try to get this service again.
+     *
+     * NOTE: currently only firestore is using this functionality to support firestore shutdown.
+     *
+     * @param name The service name
+     * @param instanceIdentifier instance identifier in case multiple instances are allowed
+     * @internal
+     */
+    FirebaseAppImpl.prototype._removeServiceInstance = function (name, instanceIdentifier) {
+        if (instanceIdentifier === void 0) { instanceIdentifier = DEFAULT_ENTRY_NAME; }
+        if (this.services_[name] && this.services_[name][instanceIdentifier]) {
+            delete this.services_[name][instanceIdentifier];
+        }
     };
     /**
      * Callback function used to extend an App instance at the time
@@ -2642,7 +2658,7 @@ var FirebaseAppImpl = /** @class */ (function () {
     FirebaseAppImpl.prototype.delete ||
     console.log('dc');
 
-var version = "6.3.2";
+var version = "6.3.4";
 
 /**
  * @license
@@ -29742,13 +29758,6 @@ var _firebase = _interopRequireDefault(require("../firebase"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// window.onload=login();
-// function login(){
-//     document.getElementById("loginSubmit").addEventListener("click", evt => {
-//     evt.preventDefault();
-//     window.location.replace("../pages/dashboard.html");
-// });
-// }
 require("date-utils");
 
 _app.default.initializeApp(_firebase.default); //Regex for Email - Validate email is well formed
@@ -29797,11 +29806,11 @@ document.getElementById("loginSubmit").addEventListener("click", function (evt) 
   if (validateEmail(userEmail) || userEmail != "") {
     if (validatePassword(password) || password != "") {
       _app.default.auth().signInWithEmailAndPassword(userEmail, password).then(function () {
-        var sUser = _app.default.auth().currentUser.uid; //var  ref = firebase.database().ref("users/");
+        var sUser = _app.default.auth().currentUser.uid; //var userType=verifyUser(sUser);
+        //console.log(userType);
 
 
-        console.log(sUser); // ref.on("value", redirect, errorData);
-        //window.location.replace("../pages/paidUserDash.html");
+        window.location.replace("../pages/dashboard.html");
       }).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -29837,20 +29846,7 @@ function errorData(errorObject) {
   console.log("The read failed: " + errorObject.code);
 }
 
-; //Logout
-
-document.getElementById("logout").addEventListener("click", function () {
-  _app.default.auth().signOut().then(function () {
-    //Send the user back to the home page
-    //window.location.replace("../index.html");
-    document.getElementById("userMessage").innerHTML = "You have been logged out";
-  }).catch(function () {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    document.getElementById("logoutError").innerHTML = "Something went wrong: " + errorCode + ". " + errorMessage;
-    console.log("Error:" + errorCode + "." + errorMessage);
-  });
-}); //Try for free (on click of try for free)
+; //Try for free (on click of try for free)
 
 document.getElementById("tryForFree").addEventListener("click", function (evt) {
   evt.preventDefault();
@@ -29882,20 +29878,6 @@ document.getElementById("tryForFree").addEventListener("click", function (evt) {
       });
     }
   });
-}); //Password reset
-
-document.getElementById("submitPasswordReset").addEventListener("click", function (evt) {
-  evt.preventDefault();
-  var userEmail = document.getElementById("emailForResend").value;
-
-  _app.default.auth().sendPasswordResetEmail(userEmail).then(function () {
-    document.getElementById("userMessage").innerHTML = "Password reset link sent!";
-  }).catch(function () {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    document.getElementById("userMessage").innerHTML = "Something went wrong: " + errorCode + ". " + errorMessage;
-    console.log("Error:" + errorCode + "." + errorMessage);
-  });
 }); // ///////////////////
 // ///////////// Verify User
 },{"firebase/app":"../node_modules/firebase/app/dist/index.cjs.js","firebase/auth":"../node_modules/firebase/auth/dist/index.esm.js","firebase/database":"../node_modules/firebase/database/dist/index.esm.js","../firebase":"firebase.js","date-utils":"../node_modules/date-utils/lib/date-utils.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -29926,7 +29908,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50570" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58323" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

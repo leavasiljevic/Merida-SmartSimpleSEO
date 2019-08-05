@@ -2,57 +2,67 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/normalize.b6182ef6.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/main.d2070829.css">
 
 
-<head>
-    <title>Sign Up</title>  
-</head>
 
+<head>
+        <title>Sign Up</title>
+</head>
+    
+    
 <body>
-    <header>
-        <div class="content">
-            <h1>Smart Simple SEO</h1>
-            <div class="nav-bar">
-                <a href="/index.html">Home</a>
-                <a href="/pages\inputPage.html">Try For Free</a>
-                <a href="/pages\signUp.html">Buy a package</a>
-                <a href="/pages\login.html" class="current">Login/Sign up</a>
-                <a href="/pages\contact.html">Contact</a>
-            </div>
+     <div id="page-container">
+     <header>
+        
+                                <div class="topnav" id="myTopnav">
+                                    <a class="logo">Smart Simple SEO</a>
+                                <a href="/index.html">Home</a>
+                                <a id="dashboardclick" href="#">Dashboard</a>
+                                <a href="/pages\login.html" class="active">Login/Sign up</a>
+                                <a href="#">Contact</a>
+                                      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                                          <i class="fa fa-bars"></i>
+                                    </a>
+                </div>
+        </header>
+         
+     
+         <section>
+          <div id="content-wrap">
+    <form class="form02">
+            <div class="row">
+        <div class="column">
+            <h2>Package</h2>
+            <hr style="border: 2px solid black;" width="50%">
+            <h4>Package information</h4>
+            <p>Unlimitted access for 9.99 monthly</p>
+            <img src="/signup.d56c747f.jpg" alt="" height="40%" width="40%">
         </div>
-    </header>
-    <form>
-        <div class="row">
-            <div class="column">
-                <h2>Package</h2>
-                <hr style="border: 2px solid black;" width="50%">
-                <p>Package information</p>
-                <img src="" alt="" height="42" width="42">
-            </div>
-            <div class="column">
-                <h2>Create New Account</h2>
-                <p id="signUpError"></p>
-                <hr style="border: 2px solid black;" width="80%">
-                <label for="firstName"><b></b></label>
-                <input id="firstName" class="signUp" type="text" placeholder="Enter Your FirstName" name="firstName" required="">
-                <label for="firstName"><b></b></label>
-                <input id="lastName" class="signUp" type="text" placeholder="Enter Your LastName" name="lastName" required=""><br>
-                <label for="email"><b></b></label>
-                <input id="emailNew" class="signUp" type="email" placeholder="Enter Email" name="emailNew" required=""><br>
-                <label for="psw"><b></b></label>
-                <input class="signUp" id="passwordNew" type="password" placeholder="Enter Password" name="psw" required=""><br>
-                <label for="psw-repeat"><b></b></label>
-                <input class="signUp" id="confirmPassword" type="password" placeholder="Repeat Password" name="psw-repeat" required=""><br><br>
-                <a href="/pages\terms.html">Terms of Use</a> &nbsp;
-                <a href="/pages\policy.html">Privacy Policy</a><br><br>
-                <button class="buttonSub" type="submit" name="submit" id="submitSignUp">Submit</button><br><br>
-                <a href="/pages\payment.html">Go to Payment Page</a>
-                <img src="" alt="" height="42" width="42">
-            </div>
+        <div class="column">
+            <h2>Create New Account</h2>
+            <hr style="border: 2px solid black;" width="80%"><br>
+            <p id="signupError">Error Comes here!!</p>
+            <label for="firstName"><b></b></label>
+            <input id="firstName" class="signUp" type="text" placeholder="Enter Your FirstName" size="30" name="firstName" required="">
+            <label for="firstName"><b></b></label>
+            <input id="lastName" class="signUp" type="text" placeholder="Enter Your LastName" size="30" name="lastName" required=""><br>
+            <label for="email"><b></b></label>
+            <input id="emailNew" class="signUp" type="email" placeholder="Enter Email" size="60" name="email" required=""><br>
+            <label for="psw"><b></b></label>
+            <input id="passwordNew" class="signUp" type="password" placeholder="Enter Password" size="30" name="psw" required=""><br>
+            <label for="psw-repeat"><b></b></label>
+            <input id="confirmPassword" class="signUp" type="password" placeholder="Repeat Password" size="30" name="psw-repeat" required=""><br><br>
+            <a href="/pages\terms.html">Terms of Use</a><br><br>
+            <button onclick="window.location.href = '../pages/payment.html';" class="userbtn" type="submit" name="submit" id="submitSignUp">Submit</button><br><br><br>
+            <img src="/arrow.6e6e896d.jpg" alt="seo sign up" height="50%" width="50%">
+
+    </div>
         </div>
-     </form>
+              </form>
+             </div>
+</section>
 
 <footer>
     <div class="content-footer">
@@ -62,7 +72,18 @@
         Brantford , ON N3S 7L6
         Tel: (226) 250-0112</div>
 </footer>
-</body>
+    </div>
+    
+    <script>function myFunction() {
+  var x = document.getElementById("myTopnav");
 
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}</script>
 <script src="/signUp.e53527e0.js"></script>
+         </body>
+
 </html>

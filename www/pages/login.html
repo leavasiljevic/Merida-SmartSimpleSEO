@@ -2,47 +2,51 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/normalize.b6182ef6.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/main.d2070829.css">
 
-
 <head>
-    <title>Login</title>  
-</head>
-
-<body>
-    <header>
-        <div class="content">
-            <h1>Smart Simple SEO</h1>
-            <div class="nav-bar">
-                <a href="/index.html">Home</a>
-                <a href="/pages\inputPage.html">Try For Free</a>
-                <a href="/pages\signUp.html">Buy a package</a>
-                <a href="/pages\login.html" class="current">Login/Sign up</a>
-                <a href="/pages\contact.html">Contact</a>
-            </div>
-        </div>
-    </header>
+        <title>Login</title>
+<script src="/signup.js"></script></head>
     
-    <section>
-        <div id="parent">
-            <form id="form_login">
-                <h2>Welcome Back</h2> <br>
-                <p5>Email address: </p5>
-                <input class="signUp" id="emailUser" type="email" placeholder="Enter Username or Email" Email="" address="" required=""> <br> <br>
-                <p6>Password: </p6>
-                <input class="signUp" id="passwordUser" type="password" placeholder="Enter Password" required=""> <br>
-                <p> <a href="/pages\forgotPass.html">Forgot Password</a>
-                </p>
-                <button class="userbtn" type="submit" name="submit" id="loginSubmit">Login</button>
-                <br><br>
-                <!-- <a href="../pages/dashboard.html">Go to dashboard</a>
-                <br><br>
-                <a href="../pages/adminDash.html">Go to Admin dashboard</a> -->
-                <p>New User? <a href="/pages\signUp.html">Sign up</a></p>
-            </form>
-        </div>
-    </section>
+    
+<body>
+     <div id="page-container">
+     <header>
+        
+                                <div class="topnav" id="myTopnav">
+                                    <a class="logo">Smart Simple SEO</a>
+                                <a href="/index.html">Home</a>
+                                <a id="dashboardclick" href="#">Dashboard</a>
+                                <a href="/pages\login.html" class="active">Login/Sign up</a>
+                                <a href="#">Contact</a>
+                                      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                                          <i class="fa fa-bars"></i>
+                                    </a>
+                </div>
+        </header>
+         
+        <section>
+          <div id="content-wrap">
+    <form class="form02">
+            <h2>Welcome Back</h2><br>
+        <p id="loginError">Error Comes Here!!</p>
+            <p5>Email address: </p5>
+            <input id="emailUser" class="signUp" type="email" placeholder="Enter Username or Email" Email="" address="" size="35" required=""> <br> <br>
+            <p6>Password: </p6>
+            <input id="passwordUser" class="signUp" type="password" placeholder="Enter Password" size="40" required=""> <br>
+            <p> <a href="/pages\passwordReset.html">Forgot Password</a>
+            </p>
+            <button onclick="window.location.href = '../pages/dashboard.html';" class="userbtn" type="submit" name="submit" id="loginSubmit">Log-in</button>
+            <p>New User? <a href="/pages\signup.html">Sign-up</a></p>
+        </form>
+    </div>
+</section>
+            
+   
+         <div class="imgfooter">
+<img src="/login01.809e9bc8.jpg" alt="login" height="10%" width="100%">
+             </div>
 
 <footer>
     <div class="content-footer">
@@ -52,7 +56,17 @@
         Brantford , ON N3S 7L6
         Tel: (226) 250-0112</div>
 </footer>
-</body>
+    </div>
+    <script>function myFunction() {
+  var x = document.getElementById("myTopnav");
 
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}</script>
 <script src="/login.fee8b19f.js"></script>
+         </body>
+
 </html>
