@@ -5,6 +5,8 @@ import config from "../firebase";
 require("date-utils");
 
 firebase.initializeApp(config);
+
+
 document.getElementById("payPal").addEventListener("click", evt => {
     const dateReceived = Date.today().toFormat("YYYY-MM-DD");
     const sUser = firebase.auth().currentUser.uid;
@@ -19,7 +21,7 @@ document.getElementById("payPal").addEventListener("click", evt => {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        document.getElementById("signUpError").innerHTML = "Something went wrong: " + errorCode + errorMessage;
+        //document.getElementById("signUpError").innerHTML = "Something went wrong: " + errorCode + errorMessage;
         console.log("Error:" + errorCode + ". " + errorMessage);
     })
 })

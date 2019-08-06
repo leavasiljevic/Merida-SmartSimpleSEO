@@ -2571,7 +2571,7 @@ var FirebaseAppImpl = /** @class */ (function () {
      * Return a service instance associated with this app (creating it
      * on demand), identified by the passed instanceIdentifier.
      *
-     * NOTE: Currently storage is the only one that is leveraging this
+     * NOTE: Currently storage and functions are the only ones that are leveraging this
      * functionality. They invoke it by calling:
      *
      * ```javascript
@@ -2599,6 +2599,22 @@ var FirebaseAppImpl = /** @class */ (function () {
             this.services_[name][instanceIdentifier] = service;
         }
         return this.services_[name][instanceIdentifier];
+    };
+    /**
+     * Remove a service instance from the cache, so we will create a new instance for this service
+     * when people try to get this service again.
+     *
+     * NOTE: currently only firestore is using this functionality to support firestore shutdown.
+     *
+     * @param name The service name
+     * @param instanceIdentifier instance identifier in case multiple instances are allowed
+     * @internal
+     */
+    FirebaseAppImpl.prototype._removeServiceInstance = function (name, instanceIdentifier) {
+        if (instanceIdentifier === void 0) { instanceIdentifier = DEFAULT_ENTRY_NAME; }
+        if (this.services_[name] && this.services_[name][instanceIdentifier]) {
+            delete this.services_[name][instanceIdentifier];
+        }
     };
     /**
      * Callback function used to extend an App instance at the time
@@ -2642,7 +2658,7 @@ var FirebaseAppImpl = /** @class */ (function () {
     FirebaseAppImpl.prototype.delete ||
     console.log('dc');
 
-var version = "6.3.2";
+var version = "6.3.4";
 
 /**
  * @license
@@ -29761,25 +29777,7 @@ function validateTextOnly(name) {
 function validatePassword(password) {
   var re = /^(?=.{6,})/;
   return re.test(password);
-} // //If payment is successful
-// document.getElementById("payPal").addEventListener("click", evt => {
-//     const dateReceived = Date.today().toFormat("YYYY-MM-DD");
-//     const sUser = firebase.auth().currentUser.uid;
-//     firebase.database().ref("user/" + sUser + "/payment/" + dateReceived).set({
-//         paymentMethod: "PayPal",
-//         verificationCode: "code"
-//     }).then(() =>
-//         //window.location.replace("../pages/paidUserDash.html");
-//         console.log("redirect to dashboard")
-//     ).catch(function (error) {
-//         // Handle Errors here.
-//         var errorCode = error.code;
-//         var errorMessage = error.message;
-//         document.getElementById("signUpError").innerHTML = "Something went wrong: " + errorCode + errorMessage;
-//         console.log("Error:" + errorCode + "." + errorMessage);
-//     });
-// })
-//Login
+} //Login
 
 
 document.getElementById("loginSubmit").addEventListener("click", function (evt) {
@@ -29790,11 +29788,35 @@ document.getElementById("loginSubmit").addEventListener("click", function (evt) 
   if (validateEmail(userEmail) || userEmail != "") {
     if (validatePassword(password) || password != "") {
       _app.default.auth().signInWithEmailAndPassword(userEmail, password).then(function () {
-        var sUser = _app.default.auth().currentUser.uid; //var userType=verifyUser(sUser);
-        //console.log(userType);
+        var sUser = _app.default.auth().currentUser.uid;
 
+        _app.default.auth().onAuthStateChanged(function (user) {
+          if (user) {
+            _app.default.database().ref("user/" + sUser).on("value", function (snapshot) {
+              var data = snapshot.val();
+              var userType = data.userType;
 
-        window.location.replace("../pages/dashboard.html");
+              switch (userType) {
+                case "admin":
+                  window.location.replace("../pages/adminDash.html");
+                  break;
+
+                case "paid":
+                  window.location.replace("../pages/dashboard.html");
+                  break;
+
+                case "pending":
+                  window.location.replace("../pages/payment.html");
+                  break;
+
+                default:
+                  document.getElementById("loginError").innerHTML = "Something went wrong.";
+              }
+            });
+          } else {
+            document.getElementById("loginError").innerHTML = "Something went wrong.";
+          }
+        });
       }).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -29809,61 +29831,6 @@ document.getElementById("loginSubmit").addEventListener("click", function (evt) 
     document.getElementById("loginError").innerHTML = "That doesn't look like an email address. Try again!";
   }
 });
-
-function redirect(data) {
-  var user = data.val();
-  var userId = Object.keys(user);
-  var userType = userId.userType;
-
-  if (userType == "pending") {
-    window.location.replace("../pages/payment.html");
-  } else if (userType == "paidUser") {
-    window.location.replace("../pages/paidUserDash.html");
-  } else if (userType == "admin") {
-    window.location.replace("../pages/adminDash.html");
-  } else {
-    document.getElementById("loginError").innerHTML = "Something went wrong. We weren't able to verify your user type. Please contact the admin.";
-  }
-}
-
-function errorData(errorObject) {
-  console.log("The read failed: " + errorObject.code);
-}
-
-; //Try for free (on click of try for free)
-
-document.getElementById("tryForFree").addEventListener("click", function (evt) {
-  evt.preventDefault();
-
-  _app.default.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      //check user type 
-      var sUser = _app.default.auth().currentUser.uid; //    const userType =firebase.database().ref("users/"+sUser+ "/userType").val();
-      //    console.log(userType);
-
-    } else {
-      _app.default.auth().signInAnonymously().then(function () {
-        var sUser = _app.default.auth().currentUser.uid;
-
-        var dateCreated = Date.today().toFormat("YYYY-MM-DD");
-
-        _app.default.database().ref("user/" + sUser).set({
-          userType: "freeUser",
-          ipAddress: "insertIPHere",
-          dateCreated: dateCreated
-        }); //window.location.href="../pages/freeTry";
-        // console.log("logged in");
-
-      }).catch(function () {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        document.getElementById("loginError").innerHTML = errorCode + "Something went wrong: " + errorMessage;
-        console.log("Error:" + errorCode + "." + errorMessage);
-      });
-    }
-  });
-}); // ///////////////////
-// ///////////// Verify User
 },{"firebase/app":"../node_modules/firebase/app/dist/index.cjs.js","firebase/auth":"../node_modules/firebase/auth/dist/index.esm.js","firebase/database":"../node_modules/firebase/database/dist/index.esm.js","../firebase":"firebase.js","date-utils":"../node_modules/date-utils/lib/date-utils.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -29892,7 +29859,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52856" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62283" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
