@@ -186,6 +186,7 @@ app.get("/compare/", (req, res) => {
 });
 
 
+
 function parseWebPage(sURL, sKeyword) {
     var jsonResult = {};
     return new Promise(function (resolve, reject) {
@@ -271,6 +272,14 @@ function getGoogleTopResults(sSearch) {
             });
     })
 }
+
+const logRequestStart = (req, res, next) => {
+    console.info(`${req.method} ${req.originalUrl}`);
+    next();
+}
+app.use(logRequestStart);
+
+app.use(express.static('public'))
 
 var port = process.env.PORT || parseInt(process.argv.pop()) || 3000;
 

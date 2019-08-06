@@ -18,12 +18,12 @@ const options = {
     
     const bundler = new Bundler(entryFiles, options);
 
-    bundler.on('buildEnd', () => {
-        const postBuildFile = Path.join(__dirname, './some-script.sh');
-        console.log(`running: ${postBuildFile}`);
-        const stdout = execSync(`${postBuildFile}`);
-        // Do things with stdout
-    });
+    // bundler.on('buildEnd', () => {
+    //     const postBuildFile = Path.join(__dirname, './some-script.sh');
+    //     console.log(`running: ${postBuildFile}`);
+    //     const stdout = execSync(`${postBuildFile}`);
+    //     // Do things with stdout
+    // });
 
     const bundle = await bundler.bundle();
 })();

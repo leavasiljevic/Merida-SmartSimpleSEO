@@ -2571,7 +2571,7 @@ var FirebaseAppImpl = /** @class */ (function () {
      * Return a service instance associated with this app (creating it
      * on demand), identified by the passed instanceIdentifier.
      *
-     * NOTE: Currently storage and functions are the only ones that are leveraging this
+     * NOTE: Currently storage is the only one that is leveraging this
      * functionality. They invoke it by calling:
      *
      * ```javascript
@@ -2599,22 +2599,6 @@ var FirebaseAppImpl = /** @class */ (function () {
             this.services_[name][instanceIdentifier] = service;
         }
         return this.services_[name][instanceIdentifier];
-    };
-    /**
-     * Remove a service instance from the cache, so we will create a new instance for this service
-     * when people try to get this service again.
-     *
-     * NOTE: currently only firestore is using this functionality to support firestore shutdown.
-     *
-     * @param name The service name
-     * @param instanceIdentifier instance identifier in case multiple instances are allowed
-     * @internal
-     */
-    FirebaseAppImpl.prototype._removeServiceInstance = function (name, instanceIdentifier) {
-        if (instanceIdentifier === void 0) { instanceIdentifier = DEFAULT_ENTRY_NAME; }
-        if (this.services_[name] && this.services_[name][instanceIdentifier]) {
-            delete this.services_[name][instanceIdentifier];
-        }
     };
     /**
      * Callback function used to extend an App instance at the time
@@ -2658,7 +2642,7 @@ var FirebaseAppImpl = /** @class */ (function () {
     FirebaseAppImpl.prototype.delete ||
     console.log('dc');
 
-var version = "6.3.4";
+var version = "6.3.2";
 
 /**
  * @license
@@ -29866,7 +29850,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58323" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51688" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

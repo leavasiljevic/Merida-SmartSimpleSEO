@@ -52,10 +52,6 @@ function CreateTableFromJSON(jsonData) {
     divContainer.appendChild(table);
 }
 
-// function printResults() {
-//     document.getElementById(printResults).window.print();
-//     //window.print();
-// }
 
 
 
