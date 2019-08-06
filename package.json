@@ -38,6 +38,7 @@
     "firebase-admin": "^8.3.0",
     "html-word-count": "2.0.0",
     "node-fetch": "^2.6.0",
+    "paypal-rest-sdk": "^1.8.1",
     "save": "^2.4.0"
   },
   "babel": {

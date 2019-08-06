@@ -4,6 +4,7 @@ import { promises } from 'fs';
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const wordCount = require('html-word-count');
+const paypal = require('paypal-rest-sdk');
 require('url');
 
 
@@ -272,6 +273,83 @@ function getGoogleTopResults(sSearch) {
             });
     })
 }
+
+
+//PayPal 
+paypal.configure({
+    'mode': 'sandbox', //sandbox or live
+    'client_id': 'AcClzCNDUg7W-BWI1zy5LPKd-WqxdrL4EDeGiduHKe268xPQZdfJ6vqgp12_VMcLSlkXDr3ocZg3bqyX',
+    'client_secret': 'EP0fMOsjlNLSMXAwC32k6FB2YlbsIuCJn6lTScW-AA348_Oq-OVLcnXIV61dwGcffSiOdxw-brsquRbv'
+});
+
+app.post('/pay', (req, res) => {
+    const create_payment_json = {
+        "intent": "sale",
+        "payer": {
+            "payment_method": "paypal"
+        },
+        "redirect_urls": {
+            "return_url": "http://localhost:3000/success",
+            "cancel_url": "http://localhost:3000/cancel"
+        },
+        "transactions": [{
+            "item_list": {
+                "items": [{
+                    "name": "SEO subscription",
+                    "sku": "001",
+                    "price": "9.99",
+                    "currency": "CAD",
+                    "quantity": 1
+                }]
+            },
+            "amount": {
+                "currency": "CAD",
+                "total": "9.99"
+            },
+            "description": "Month Subscription for Smart Simple SEO"
+        }]
+    };
+
+    paypal.payment.create(create_payment_json, function (error, payment) {
+        if (error) {
+            throw error;
+        } else {
+            for (let i = 0; i < payment.links.length; i++) {
+                if (payment.links[i].rel === 'approval_url') {
+                    res.redirect(payment.links[i].href);
+                }
+            }
+        }
+    });
+});
+
+app.get('/success', (req, res) => {
+    const payerId = req.query.PayerID;
+    const paymentId = req.query.paymentId;
+
+    const execute_payment_json = {
+        "payer_id": payerId,
+        "transactions": [{
+            "amount": {
+                "currency": "CAD",
+                "total": "9.99"
+            }
+        }]
+    };
+
+    paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+        if (error) {
+            console.log(error.response);
+            throw error;
+        } else {
+            console.log(JSON.stringify(payment));
+            res.send('Success');
+        }
+    });
+});
+
+app.get('/cancel', (req, res) => res.send('Cancelled'));
+
 
 const logRequestStart = (req, res, next) => {
     console.info(`${req.method} ${req.originalUrl}`);
