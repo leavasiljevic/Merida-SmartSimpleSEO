@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../Styles/main.css">
-<script src=""></script>
+
 
 
 <head>
@@ -33,20 +33,20 @@
              <h3>Your Page Analysed</h3>&nbsp;&nbsp;<a label id="firstUrl">shimamaleki.com</a>
              
              
-             <table></table>
+             <div id = results></div>
              
              
              
                   <div class="wrapper">
-            <button id=""  class="userbtn">Save</button>
-            <button id=""  class="userbtn" id="logout">Print</button>
+            <button id=""  class="userbtn" onclick= window.print()>Save</button>
+            <button id=""  class="userbtn" id="logout" onclick= window.print()>Print</button>
                       <button onclick="window.location.href = '../pages/input.html';" id=""  class="userbtn" id="logout">Run Another report</button>
         </div>
                     <div class="midCircle">
                         
       <div class="circle">
           <h3>Package</h3>
-          <h4>Unlimitted access for monthly 9.99</h4>
+          <h4>Unlimited access for monthly 9.99</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           
         <button class="userbtn" id="freeBtn">Try for Free</button>
@@ -77,6 +77,7 @@ function myFunction() {
   }
 }
 </script>
+<script src="../scripts/output.js"></script>
          </body>
 
 </html>
