@@ -18,7 +18,7 @@ document.getElementById("compare").addEventListener("click", function (evt) {
 
 document.getElementById("compare").addEventListener("click", function (evt) {
     evt.preventDefault();
-    let sClientURL = document.getElementById("enterURL").value;
+    let sClientURL = document.getElementById("clientURL").value;
     let sKeyword = document.getElementById("enterKeyword").value || null;
     let sLocation = document.getElementById("enterLocation").value || null;
     let sCompetitor1URL = document.getElementById("enterCompetitor1URL").value || null;
@@ -69,7 +69,7 @@ document.getElementById("compare").addEventListener("click", function (evt) {
         .then(function (data) {
 
             sessionStorage.setItem("SEOOutput", data);
-            location.href = "./output.html";
+            location.href = "./results.html";
 
             // var jsonResult = JSON.parse(data);
             // this.CreateTableFromJSON(jsonResult);

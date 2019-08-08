@@ -29776,7 +29776,7 @@ document.getElementById("compare").addEventListener("click", function (evt) {
 });
 document.getElementById("compare").addEventListener("click", function (evt) {
   evt.preventDefault();
-  var sClientURL = document.getElementById("enterURL").value;
+  var sClientURL = document.getElementById("clientURL").value;
   var sKeyword = document.getElementById("enterKeyword").value || null;
   var sLocation = document.getElementById("enterLocation").value || null;
   var sCompetitor1URL = document.getElementById("enterCompetitor1URL").value || null;
@@ -29814,7 +29814,7 @@ document.getElementById("compare").addEventListener("click", function (evt) {
     return response.text();
   }).then(function (data) {
     sessionStorage.setItem("SEOOutput", data);
-    location.href = "./output.html"; // var jsonResult = JSON.parse(data);
+    location.href = "./results.html"; // var jsonResult = JSON.parse(data);
     // this.CreateTableFromJSON(jsonResult);
   }).catch(function (err) {
     console.log('Fetch Error :-S', err);
@@ -29886,7 +29886,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56761" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58773" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
