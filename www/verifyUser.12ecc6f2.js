@@ -29760,53 +29760,84 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
-
 require("date-utils");
 
-_app.default.initializeApp(_firebase.default); // function verifyUser(){
-//     var sUser = firebase.auth().currentUser.uid;
-//     firebase.database().ref("user/" + sUser).on("value", (snapshot) => {
-//         var oUsers = snapshot.val();
-//         var userType = oUsers.userType;
-//         return userType;
-//     })
-// }
+_app.default.initializeApp(_firebase.default);
 
+_app.default.initializeApp(_firebase.default);
 
-document.getElementById("tryForFree").addEventListener("click", function (evt) {
+var ipAddress = "";
+var userType = "";
+var ipAddress = "";
+var ipKey = "";
+var counter = 0;
+document.getElementById("compare").addEventListener("click", function (evt) {
   evt.preventDefault();
 
   _app.default.auth().onAuthStateChanged(function (user) {
     if (user) {
-      //check user type 
       var sUser = _app.default.auth().currentUser.uid;
 
-      var userType = _app.default.database().ref("user/" + sUser + "/userType").on("value", function (snapshot) {
-        if (!snapshot.val()) {
-          var dateCreated = Date.today().toFormat("YYYY-MM-DD");
+      _app.default.database().ref("user/" + sUser).on("value", function (snapshot) {
+        var data = snapshot.val();
 
-          _app.default.database().ref("user/" + sUser).set({
-            userType: "freeUser",
-            ipAddress: "insertIPHere",
-            timesAccessed: 1,
-            dateCreated: dateCreated
-          });
+        if (data) {
+          userType = data.userType;
+
+          if (userType == "pending") {
+            window.location.replace("../pages/payment.html");
+          } else if (userType == "paid") {
+            window.location.replace("../pages/dashboard.html");
+          }
         } else {
-          //Want to check the userType then find other users with the same userType to see if they have the same Ip address
-          userType = (_readOnlyError("userType"), snapshot.val());
-          console.log(userType);
-        } // console.log(snapshot.val());
-        //console.log(userType);
-
+          createFreeUser();
+        }
       });
     } else {
-      _app.default.auth().signInAnonymously(); //window.location.href="../pages/freeTry";
-      // console.log("logged in");
-
+      _app.default.auth().signInAnonymously();
     }
   });
 });
+
+function createFreeUser() {
+  fetch('https://api.ipify.org?format=json').then(function (response) {
+    return response.json();
+  }).then(function (myJson) {
+    ipAddress = myJson.ip;
+    ipKey = ipAddress.replace(/\./g, "_");
+    findIPAddress(ipKey);
+  });
+}
+
+function findIPAddress(ipAddress) {
+  var ipSearch = _app.default.database().ref("user/FreeUser/");
+
+  ipSearch.once("value", function (snapshot) {
+    var oItems = snapshot.val();
+    var aKeys = Object.keys(oItems);
+
+    for (var n = 0; n < aKeys.length; n++) {
+      if (aKeys[n] == ipAddress) {
+        counter = oItems[aKeys[n]].timesAccessed;
+
+        if (counter && counter < 2) {
+          _app.default.database().ref("user/FreeUser/" + ipAddress).update({
+            timesAccessed: 2
+          });
+        } else {
+          window.location.replace("../pages/payment.html");
+        }
+      } else {
+        var dateCreated = Date.today().toFormat("YYYY-MM-DD");
+
+        _app.default.database().ref("user/FreeUser/" + ipAddress).set({
+          timesAccessed: 1,
+          dateCreated: dateCreated
+        });
+      }
+    }
+  });
+}
 },{"firebase/app":"../node_modules/firebase/app/dist/index.cjs.js","firebase/auth":"../node_modules/firebase/auth/dist/index.esm.js","firebase/database":"../node_modules/firebase/database/dist/index.esm.js","../firebase":"firebase.js","date-utils":"../node_modules/date-utils/lib/date-utils.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -29835,7 +29866,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54374" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56761" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

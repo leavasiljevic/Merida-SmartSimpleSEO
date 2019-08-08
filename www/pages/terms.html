@@ -2,54 +2,68 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/main.d2070829.css">
 
 
 <head>
-        <title>Terms</title>
+    <title>Terms</title>
 </head>
-    
-    
+
+
 <body>
-     <div id="page-container">
-     <header>
-        
-                                <div class="topnav" id="myTopnav">
-                                    <a class="logo">Smart Simple SEO</a>
-                                <a href="/index.html">Home</a>
-                                <a id="dashboardclick" href="#">Dashboard</a>
-                                <a href="/pages/login.html" class="active">Login/Sign up</a>
-                                <a href="#">Contact</a>
-                                      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                                          <i class="fa fa-bars"></i>
-                                    </a>
+    <div id="page-container">
+        <header>
+
+            <div class="topnav" id="myTopnav">
+                <a class="logo">Smart Simple SEO</a>
+                <a href="/index.html">Home</a>
+                <div id="paidDash"><a id="paidDash" href="/pages\dashboard.html">Dashboard</a></div>
+                <div id="adminDash"><a href="/pages\adminDash.html">Dashboard</a></div>
+                <div id="loginLink"><a href="/pages\login.html">Login/Sign up</a></div>
+                <div id="logout"><a href="#">Logout</a></div>
+                <div class="dropdown">
+                    <a onclick="contactFunction()" class="dropbtn">Contact</a>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="mailto:trevor@smartsimpleseo.com">trevor@smartsimpleseo.com</a>
+                    </div>
                 </div>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
         </header>
-         
-  
-             <section>
-          <div id="content-wrap">
-    <form class="form02">
-        <h4>Term of Use:</h4>
-          
-        </form>
-    </div>
-</section>
-            
 
 
-<footer>
-    <div class="content-footer">
-        Company name:Smashing Pixels Inc<br><br>
-        Contact information: 446 Grey Street, Unit 302
-        (with Ball Media)
-        Brantford , ON N3S 7L6
-        Tel: (226) 250-0112</div>
-</footer>
+        <section>
+            <div id="content-wrap">
+                <form class="form02">
+                    <h4>Term of Use:</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin mauris metus, tristique finibus elit
+                    aliquam quis. Integer risus velit, venenatis eget metus id, vestibulum ornare leo. Quisque pretium massa nec arcu
+                    rhoncus eleifend. Aenean interdum diam elit, eu molestie diam ornare euismod. Praesent id odio eros. Nam ultricies
+                    porttitor scelerisque. Curabitur nec odio rutrum, lacinia justo at, ultrices est. In hac habitasse platea dictumst. In
+                    hac habitasse platea dictumst. Nam tincidunt tristique metus eu tempor. Integer pellentesque leo tellus. Integer urna
+                    lacus, lacinia non nulla in, ullamcorper feugiat sapien. Aliquam nec elit arcu. Fusce leo sapien, fermentum ac dolor
+                    non, lobortis mattis nisl. Sed tristique eu tellus vitae mattis.</p>
+                </form>
+            </div>
+        </section>
+
+
+
+        <footer>
+            <div class="content-footer">
+                Company name: Smashing Pixels Inc<br><br>
+                Contact information: 446 Grey Street, Unit 302
+                (with Ball Media)
+                Brantford , ON N3S 7L6
+                Tel: (226) 250-0112 |
+                Email: <a href="mailto:trevor@smartsimpleseo.com" style="color:white; text-decoration: none;">trevor@smartsimpleseo.com</a></div>
+        </footer>
     </div>
-    
-    <script>function myFunction() {
+
+    <script>function hamburgerFunction() {
   var x = document.getElementById("myTopnav");
 
   if (x.className === "topnav") {
@@ -57,7 +71,29 @@
   } else {
     x.className = "topnav";
   }
-}</script>
-         </body>
+}
+
+function contactFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+} // Close the dropdown if the user clicks outside of it
+
+
+window.onclick = function (event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+};</script>
+    <script src="/nav.eca5daf2.js"></script>
+    <script src="/logout.21f7cd44.js"></script>
+</body>
 
 </html>

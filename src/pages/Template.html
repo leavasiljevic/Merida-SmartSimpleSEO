@@ -7,7 +7,7 @@
 
 
 <head>
-        <title>Input Page</title>
+        <title>Template Design</title>
 </head>
     
     
@@ -17,10 +17,17 @@
         
                                 <div class="topnav" id="myTopnav">
                                     <a class="logo">Smart Simple SEO</a>
-                                <a href="../pages/index.html">Home</a>
-                                <a id="dashboardclick" href="#">Dashboard</a>
-                                <a href="href=../pages/login.html" class="active">Login/Sign up</a>
-                                <a href="#">Contact</a>
+                                <a href="../index.html">Home</a>
+                                <div id="paidDash"><a id="paidDash" href="../pages/dashboard.html">Dashboard</a></div>
+                                <div id="adminDash"><a href="../pages/adminDash.html">Dashboard</a></div>
+                                <div id="loginLink"><a href="../pages/login.html">Login/Sign up</a></div>
+                                <div id="logout"><a href="#">Logout</a></div>
+                                <div class="dropdown">
+                                  <a onclick="contactFunction()" class="dropbtn">Contact</a>
+                                  <div id="myDropdown" class="dropdown-content">
+                                    <a href="mailto:trevor@smartsimpleseo.com">trevor@smartsimpleseo.com</a>
+                                  </div>
+                                </div>
                                       <a href="javascript:void(0);" class="icon" onclick="myFunction()">
                                           <i class="fa fa-bars"></i>
                                     </a>
@@ -31,7 +38,7 @@
              <section>
           <div id="content-wrap">
     <form class="form02">
-        <h4>Term of Use:</h4>
+        <h4>Placeholder:</h4>
           
         </form>
     </div>
@@ -39,26 +46,48 @@
             
 
 
-<footer>
+  <footer>
     <div class="content-footer">
-        Company name:Smashing Pixels Inc<br><br>
-        Contact information: 446 Grey Street, Unit 302
-        (with Ball Media)
-        Brantford , ON N3S 7L6
-        Tel: (226) 250-0112</div>
-</footer>
-    </div>
-    
-    <script>
-function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
-</script>
+      Company name: Smashing Pixels Inc<br><br>
+      Contact information: 446 Grey Street, Unit 302
+      (with Ball Media)
+      Brantford , ON N3S 7L6
+      Tel: (226) 250-0112 |
+      Email: <a href="mailto:trevor@smartsimpleseo.com"
+        style="color:white; text-decoration: none;">trevor@smartsimpleseo.com</a></div>
+  </footer>
+  </div>
+  
+  <script>function hamburgerFunction() {
+      var x = document.getElementById("myTopnav");
+
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+
+    function contactFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    } // Close the dropdown if the user clicks outside of it
+
+    window.onclick = function (event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    };</script>
+<script src="../scripts/nav.js"></script>
+<script src="../scripts/logout.js"></script>
          </body>
 
 </html>

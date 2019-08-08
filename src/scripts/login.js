@@ -4,6 +4,7 @@ import 'firebase/database';
 import config from "../firebase";
 require("date-utils");
 
+
 firebase.initializeApp(config);
 
 
@@ -39,22 +40,23 @@ document.getElementById("loginSubmit").addEventListener("click", evt => {
                             firebase.database().ref("user/" + sUser).on("value", (snapshot) => {
                                 const data = snapshot.val();
                                 var userType = data.userType;
-                                switch(userType){
+                                switch (userType) {
                                     case "admin":
                                         window.location.replace("../pages/adminDash.html");
                                         break;
                                     case "paid":
+                                        checkPaidStatus();
                                         window.location.replace("../pages/dashboard.html");
                                         break;
                                     case "pending":
                                         window.location.replace("../pages/payment.html");
                                         break;
-                                    default: 
-                                         document.getElementById("loginError").innerHTML = "Something went wrong.";
+                                    default:
+                                        document.getElementById("loginError").innerHTML = "Something went wrong.";
                                 }
 
                             });
-                        }else{
+                        } else {
                             document.getElementById("loginError").innerHTML = "Something went wrong.";
                         }
                     })
@@ -76,3 +78,12 @@ document.getElementById("loginSubmit").addEventListener("click", evt => {
 
 });
 
+//var lastPayDate="";
+function checkPaidStatus() {
+    var sUser = firebase.auth().currentUser.uid;
+    firebase.database().ref("user/" + sUser + "/payment").on("child_added", function (data) {
+        var lastPayDate = new Date(data.key);
+        var months = lastPayDate.getMonthsBetween(Date.now());
+        console.log(months);
+    })
+}

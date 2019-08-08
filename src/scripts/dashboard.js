@@ -1,4 +1,20 @@
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+import config from "../firebase";
+require("date-utils");
 
+firebase.initializeApp(config);
+
+document.getElementById("compare").addEventListener("click", function (evt) {
+    var clientURL = document.getElementById("clientURL").value;
+    const sUser = firebase.auth().currentUser.uid;
+    const dateSearched = Date.today().toFormat("YYYY-MM-DD-hh-mm-ss");
+    firebase.database().ref("user/" + sUser + "/report/" + dateSearched).set({
+        url: clientURL,
+        dateSearched: dateSearched
+    })
+})
 
 document.getElementById("compare").addEventListener("click", function (evt) {
     evt.preventDefault();

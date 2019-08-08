@@ -6,46 +6,77 @@ require("date-utils");
 
 firebase.initializeApp(config);
 
-// function verifyUser(){
-//     var sUser = firebase.auth().currentUser.uid;
-//     firebase.database().ref("user/" + sUser).on("value", (snapshot) => {
-//         var oUsers = snapshot.val();
-//         var userType = oUsers.userType;
-//         return userType;
-//     })
-// }
+firebase.initializeApp(config);
+var ipAddress = "";
+var userType = "";
+var ipAddress = "";
+var ipKey = "";
+var counter = 0;
 
-document.getElementById("tryForFree").addEventListener("click", evt => {
+document.getElementById("compare").addEventListener("click", evt => {
     evt.preventDefault();
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            //check user type 
             const sUser = firebase.auth().currentUser.uid;
-            const userType = firebase.database().ref("user/" + sUser + "/userType").on("value", (snapshot) => {
-                if (!snapshot.val()) {
-                    const dateCreated = Date.today().toFormat("YYYY-MM-DD");
-                    firebase.database().ref("user/" + sUser).set({
-                        userType: "freeUser",
-                        ipAddress: "insertIPHere",
-                        timesAccessed: 1,
-                        dateCreated: dateCreated
-                    })
-                } else {
-                    //Want to check the userType then find other users with the same userType to see if they have the same Ip address
-                    userType = snapshot.val();
-                    console.log(userType);
+            firebase.database().ref("user/" + sUser).on("value", (snapshot) => {
+                const data = snapshot.val();
+                if ((data)) {
+                    userType = data.userType;
+                    if (userType == "pending") {
+                        window.location.replace("../pages/payment.html");
+                    }
+                    else if (userType == "paid") {
+                        window.location.replace("../pages/dashboard.html");
+                    }
                 }
-                // console.log(snapshot.val());
-                //console.log(userType);
+                else {
+                    createFreeUser();
+                }
             });
         }
         else {
             firebase.auth().signInAnonymously();
-            //window.location.href="../pages/freeTry";
-            // console.log("logged in");
         }
     });
 
 });
 
+
+function createFreeUser() {
+    fetch('https://api.ipify.org?format=json').then(function (response) {
+        return response.json();
+    }).then(function (myJson) {
+        ipAddress = myJson.ip;
+        ipKey = ipAddress.replace(/\./g, "_");
+        findIPAddress(ipKey);
+    })
+}
+
+function findIPAddress(ipAddress) {
+    var ipSearch = firebase.database().ref("user/FreeUser/")
+    ipSearch.once("value", function (snapshot) {
+        const oItems = snapshot.val();
+        const aKeys = Object.keys(oItems);
+        for (let n = 0; n < aKeys.length; n++) {
+            if (aKeys[n] == ipAddress) {
+                counter = oItems[aKeys[n]].timesAccessed;
+                if ((counter) && counter < 2) {
+                    firebase.database().ref("user/FreeUser/" + ipAddress).update({
+                        timesAccessed: 2
+                    })
+                }
+                else {
+                    window.location.replace("../pages/payment.html");
+                }
+            }
+            else {
+                const dateCreated = Date.today().toFormat("YYYY-MM-DD");
+                firebase.database().ref("user/FreeUser/" + ipAddress).set({
+                    timesAccessed: 1,
+                    dateCreated: dateCreated
+                })
+            }
+        }
+    })
+}
 

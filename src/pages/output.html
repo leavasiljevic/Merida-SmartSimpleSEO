@@ -2,82 +2,110 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../Styles/main.css">
 
 
 
 <head>
-        <title>Output Page</title>
+  <title>Output Page</title>
 </head>
-    
-    
-<body>
-     <div id="page-container">
-     <header>
-        
-                                <div class="topnav" id="myTopnav">
-                                    <a class="logo">Smart Simple SEO</a>
-                                <a href="../index.html">Home</a>
-                                <a id="dashboardclick" href="#" class="active">Dashboard</a>
-                                <a href="../pages/login.html">Login/Sign up</a>
-                                <a href="#">Contact</a>
-                                      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                                          <i class="fa fa-bars"></i>
-                                    </a>
-                </div>
-        </header>
-         
-           <div id="content-wrap">
-         <div class="form01">
-             <h3>Your Page Analysed</h3>&nbsp;&nbsp;<a label id="firstUrl">shimamaleki.com</a>
-             
-             
-             <div id = results></div>
-             
-             
-             
-                  <div class="wrapper">
-            <button id=""  class="userbtn" onclick= window.print()>Save</button>
-            <button id=""  class="userbtn" id="logout" onclick= window.print()>Print</button>
-                      <button onclick="window.location.href = '../pages/input.html';" id=""  class="userbtn" id="logout">Run Another report</button>
-        </div>
-                    <div class="midCircle">
-                        
-      <div class="circle">
-          <h3>Package</h3>
-          <h4>Unlimited access for monthly 9.99</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          
-        <button class="userbtn" id="freeBtn">Try for Free</button>
-    </div>
-          
-        </div>
-        </div>
-    
 
-<footer>
+
+<body>
+  <div id="page-container">
+    <header>
+
+      <div class="topnav" id="myTopnav">
+        <a class="logo">Smart Simple SEO</a>
+        <a href="../index.html">Home</a>
+        <div id="paidDash"><a id="paidDash" href="../pages/dashboard.html">Dashboard</a></div>
+        <div id="adminDash"><a href="../pages/adminDash.html">Dashboard</a></div>
+        <div id="loginLink"><a href="../pages/login.html">Login/Sign up</a></div>
+        <div id="logout"><a href="#">Logout</a></div>
+        <div class="dropdown">
+          <a onclick="contactFunction()" class="dropbtn">Contact</a>
+          <div id="myDropdown" class="dropdown-content">
+            <a href="mailto:trevor@smartsimpleseo.com">trevor@smartsimpleseo.com</a>
+          </div>
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </header>
+
+    <div id="content-wrap">
+      <div class="form01">
+        <h3>Your Page Analysed</h3>&nbsp;&nbsp;<a label id="firstUrl"><!--Send URL here--></a>
+
+
+        <div id=results></div>
+
+
+
+        <div class="wrapper">
+          <button id="" class="userbtn" onclick=window.print()>Save</button>
+          <button id="" class="userbtn" id="logout" onclick=window.print()>Print</button>
+          <button onclick="window.location.href = '../pages/input.html';" id="" class="userbtn" id="logout">Run Another
+            report</button>
+        </div>
+        <div class="midCircle">
+
+          <div class="circle">
+            <h3>Package</h3>
+            <h4>Unlimited access for monthly 9.99</h4>
+            <p>Included with this price is unlimited access to the search optimization capabilities you see here. Improve your web projects seamlessly with your innovative tool. </p>
+
+            <button class="userbtn" id="freeBtn">Try for Free</button>
+          </div>
+
+        </div>
+      </div>
+
+  <footer>
     <div class="content-footer">
-        Company name:Smashing Pixels Inc<br><br>
-        Contact information: 446 Grey Street, Unit 302
-        (with Ball Media)
-        Brantford , ON N3S 7L6
-        Tel: (226) 250-0112</div>
-</footer>
-    </div>
-    </div>
-    
-    <script>
-function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
-</script>
-<script src="../scripts/output.js"></script>
-         </body>
+      Company name: Smashing Pixels Inc<br><br>
+      Contact information: 446 Grey Street, Unit 302
+      (with Ball Media)
+      Brantford , ON N3S 7L6
+      Tel: (226) 250-0112 |
+      Email: <a href="mailto:trevor@smartsimpleseo.com"
+        style="color:white; text-decoration: none;">trevor@smartsimpleseo.com</a></div>
+  </footer>
+  </div>
+  
+  <script>function hamburgerFunction() {
+      var x = document.getElementById("myTopnav");
+
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+
+    function contactFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    } // Close the dropdown if the user clicks outside of it
+
+    window.onclick = function (event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    };</script>
+  <script src="../scripts/nav.js"></script>
+  <script src="../scripts/output.js"></script>
+  <script src="../scripts/logout.js"></script>
+</body>
 
 </html>
