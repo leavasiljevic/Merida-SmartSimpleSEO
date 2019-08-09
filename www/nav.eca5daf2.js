@@ -29770,6 +29770,10 @@ window.addEventListener("load", function (evt) {
     if (user) {
       var sUser = _app.default.auth().currentUser.uid;
 
+      if (sessionStorage.sUser !== sUser) {
+        sessionStorage.sUser = sUser;
+      }
+
       console.log(sUser);
 
       _app.default.database().ref("user/" + sUser).on("value", function (snapshot) {
@@ -29785,6 +29789,9 @@ window.addEventListener("load", function (evt) {
             document.getElementById("adminDash").style.display = "none";
           } else if (userType == "admin") {
             document.getElementById("adminDash").style.display = "block";
+            document.getElementById("paidDash").style.display = "none";
+          } else {
+            document.getElementById("adminDash").style.display = "none";
             document.getElementById("paidDash").style.display = "none";
           }
         } else {
@@ -29831,7 +29838,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58773" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61851" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

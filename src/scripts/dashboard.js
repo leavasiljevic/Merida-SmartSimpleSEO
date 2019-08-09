@@ -6,10 +6,33 @@ require("date-utils");
 
 firebase.initializeApp(config);
 
+document.body.onload = addElement();
+
+
+function addElement() {
+    
+    const sUser = sessionStorage.sUser;
+    firebase.database().ref("user/" + sUser + "/report").on("value", snapshot => {
+        const oItems = snapshot.val();
+        const aKeys = Object.keys(oItems);
+
+        var pastSearch = document.getElementById("pastSearch");
+        for (let n = 0; n < aKeys.length; n++) {
+            let sSearch = (oItems[aKeys[n]].dateSearched).slice(0, 10) + " : " + oItems[aKeys[n]].url;
+            var searches = document.createElement("div");
+            searches.innerHTML = sSearch;
+
+            pastSearch.appendChild(searches);
+        }
+    });
+}
+
+
+
 document.getElementById("compare").addEventListener("click", function (evt) {
     var clientURL = document.getElementById("clientURL").value;
-    const sUser = firebase.auth().currentUser.uid;
-    const dateSearched = Date.today().toFormat("YYYY-MM-DD-hh-mm-ss");
+    const sUser = sessionStorage.sUser;
+    const dateSearched = getUTCDateTime();
     firebase.database().ref("user/" + sUser + "/report/" + dateSearched).set({
         url: clientURL,
         dateSearched: dateSearched
@@ -63,7 +86,7 @@ document.getElementById("compare").addEventListener("click", function (evt) {
                 return;
             }
 
-          
+
             return response.text();
         })
         .then(function (data) {
@@ -129,6 +152,10 @@ function CreateTableFromJSON(jsonData) {
 
 }
 
+function getUTCDateTime() {
+    var now = new Date();
+    return now.getUTCFullYear() + '-' + (now.getUTCMonth() + 1) + '-' + now.getUTCDate() + ' ' + now.getUTCHours() + ':' + now.getUTCMinutes() + ':' + now.getUTCSeconds()
+}
 
 
 

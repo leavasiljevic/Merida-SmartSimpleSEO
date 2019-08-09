@@ -171,12 +171,12 @@ app.get("/compare/", (req, res) => {
                         res.send(oReturnResult);
                     })
                     .catch(function (err) {
-                        res.status(500).send({ error: 'Error occured on the server' });
+                        res.status(500).send({ error: 'Error occurred on the server' });
                         console.log(err)
                     });
             })
             .catch(function (err) {
-                res.status(500).send({ error: 'Error occured on the server' });
+                res.status(500).send({ error: 'Error occurred on the server' });
                 console.log(err)
             });
 
@@ -289,8 +289,8 @@ app.post('/pay', (req, res) => {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "http://localhost:3000/success",
-            "cancel_url": "http://localhost:3000/cancel"
+            "return_url": "http://localhost:3000/pages/dummypage.html",
+            "cancel_url": "http://localhost:3000/pages/dummypage.html"
         },
         "transactions": [{
             "item_list": {
@@ -323,9 +323,10 @@ app.post('/pay', (req, res) => {
     });
 });
 
-app.get('/success', (req, res) => {
+app.get('/pages/dummypage.html', (req, res) => {
     const payerId = req.query.PayerID;
-    const paymentId = req.query.paymentId;
+    const paymentId = req.query.PaymentId;
+    
 
     const execute_payment_json = {
         "payer_id": payerId,
@@ -342,13 +343,13 @@ app.get('/success', (req, res) => {
             console.log(error.response);
             throw error;
         } else {
-            console.log(JSON.stringify(payment));
-            res.send('Success');
+            res.send("Success");
+
         }
     });
 });
 
-app.get('/cancel', (req, res) => res.send('Cancelled'));
+app.get('/pages/dummypage.html', (req, res) => res.send('Cancelled'));
 
 
 const logRequestStart = (req, res, next) => {

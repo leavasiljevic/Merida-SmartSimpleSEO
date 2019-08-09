@@ -29762,12 +29762,29 @@ require("date-utils");
 
 _app.default.initializeApp(_firebase.default);
 
+document.body.onload = addElement();
+
+function addElement() {
+  var sUser = sessionStorage.sUser;
+
+  _app.default.database().ref("user/" + sUser + "/report").on("value", function (snapshot) {
+    var oItems = snapshot.val();
+    var aKeys = Object.keys(oItems);
+    var pastSearch = document.getElementById("pastSearch");
+
+    for (var n = 0; n < aKeys.length; n++) {
+      var sSearch = oItems[aKeys[n]].dateSearched.slice(0, 10) + " : " + oItems[aKeys[n]].url;
+      var searches = document.createElement("div");
+      searches.innerHTML = sSearch;
+      pastSearch.appendChild(searches);
+    }
+  });
+}
+
 document.getElementById("compare").addEventListener("click", function (evt) {
   var clientURL = document.getElementById("clientURL").value;
-
-  var sUser = _app.default.auth().currentUser.uid;
-
-  var dateSearched = Date.today().toFormat("YYYY-MM-DD-hh-mm-ss");
+  var sUser = sessionStorage.sUser;
+  var dateSearched = getUTCDateTime();
 
   _app.default.database().ref("user/" + sUser + "/report/" + dateSearched).set({
     url: clientURL,
@@ -29858,6 +29875,11 @@ function CreateTableFromJSON(jsonData) {
   divContainer.innerHTML = "";
   divContainer.appendChild(table);
 }
+
+function getUTCDateTime() {
+  var now = new Date();
+  return now.getUTCFullYear() + '-' + (now.getUTCMonth() + 1) + '-' + now.getUTCDate() + ' ' + now.getUTCHours() + ':' + now.getUTCMinutes() + ':' + now.getUTCSeconds();
+}
 },{"firebase/app":"../node_modules/firebase/app/dist/index.cjs.js","firebase/auth":"../node_modules/firebase/auth/dist/index.esm.js","firebase/database":"../node_modules/firebase/database/dist/index.esm.js","../firebase":"firebase.js","date-utils":"../node_modules/date-utils/lib/date-utils.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -29886,7 +29908,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58773" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61851" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

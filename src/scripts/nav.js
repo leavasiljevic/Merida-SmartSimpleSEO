@@ -11,6 +11,9 @@ window.addEventListener("load", evt=>{
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         const sUser = firebase.auth().currentUser.uid;
+        if(sessionStorage.sUser!==sUser){
+            sessionStorage.sUser = sUser;
+        }
         console.log(sUser);
         firebase.database().ref("user/" + sUser).on("value", (snapshot) => {
             const data = snapshot.val();
@@ -25,6 +28,10 @@ firebase.auth().onAuthStateChanged(function (user) {
                 }
                 else if (userType == "admin") {
                     document.getElementById("adminDash").style.display = "block";
+                    document.getElementById("paidDash").style.display = "none";
+                }
+                else{
+                    document.getElementById("adminDash").style.display = "none";
                     document.getElementById("paidDash").style.display = "none";
                 }
             }

@@ -6,8 +6,6 @@ require("date-utils");
 
 
 firebase.initializeApp(config);
-
-
 //Regex for Email - Validate email is well formed
 function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -35,6 +33,9 @@ document.getElementById("loginSubmit").addEventListener("click", evt => {
             firebase.auth().signInWithEmailAndPassword(userEmail, password).then(
                 () => {
                     const sUser = firebase.auth().currentUser.uid;
+                    if (sessionStorage.sUser !== sUser) {
+                        sessionStorage.sUser = sUser;
+                    }
                     firebase.auth().onAuthStateChanged(function (user) {
                         if (user) {
                             firebase.database().ref("user/" + sUser).on("value", (snapshot) => {
@@ -45,7 +46,7 @@ document.getElementById("loginSubmit").addEventListener("click", evt => {
                                         window.location.replace("../pages/adminDash.html");
                                         break;
                                     case "paid":
-                                        checkPaidStatus();
+                                        //checkPaidStatus();
                                         window.location.replace("../pages/dashboard.html");
                                         break;
                                     case "pending":
@@ -79,11 +80,11 @@ document.getElementById("loginSubmit").addEventListener("click", evt => {
 });
 
 //var lastPayDate="";
-function checkPaidStatus() {
-    var sUser = firebase.auth().currentUser.uid;
-    firebase.database().ref("user/" + sUser + "/payment").on("child_added", function (data) {
-        var lastPayDate = new Date(data.key);
-        var months = lastPayDate.getMonthsBetween(Date.now());
-        console.log(months);
-    })
-}
+// function checkPaidStatus() {
+//     var sUser = firebase.auth().currentUser.uid;
+//     firebase.database().ref("user/" + sUser + "/payment").on("child_added", function (data) {
+//         var lastPayDate = new Date(data.key);
+//         var months = lastPayDate.getMonthsBetween(Date.now());
+//         console.log(months);
+//     })
+// }

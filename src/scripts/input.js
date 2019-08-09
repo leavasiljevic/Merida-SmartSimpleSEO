@@ -1,5 +1,7 @@
 
 
+
+
 document.getElementById("compare").addEventListener("click", function (evt) {
   evt.preventDefault();
   let sClientURL = document.getElementById("enterURL").value;

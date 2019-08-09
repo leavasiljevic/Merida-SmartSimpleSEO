@@ -29764,8 +29764,6 @@ require("date-utils");
 
 _app.default.initializeApp(_firebase.default);
 
-_app.default.initializeApp(_firebase.default);
-
 var ipAddress = "";
 var userType = "";
 var ipAddress = "";
@@ -29790,7 +29788,7 @@ document.getElementById("compare").addEventListener("click", function (evt) {
             window.location.replace("../pages/dashboard.html");
           }
         } else {
-          createFreeUser();
+          searchFreeUser();
         }
       });
     } else {
@@ -29799,7 +29797,7 @@ document.getElementById("compare").addEventListener("click", function (evt) {
   });
 });
 
-function createFreeUser() {
+function searchFreeUser() {
   fetch('https://api.ipify.org?format=json').then(function (response) {
     return response.json();
   }).then(function (myJson) {
@@ -29820,15 +29818,17 @@ function findIPAddress(ipAddress) {
       if (aKeys[n] == ipAddress) {
         counter = oItems[aKeys[n]].timesAccessed;
 
-        if (counter && counter < 2) {
+        if (counter < 2) {
           _app.default.database().ref("user/FreeUser/" + ipAddress).update({
             timesAccessed: 2
           });
-        } else {
-          window.location.replace("../pages/payment.html");
+        } else if (counter == 2) {
+          window.location.replace("../pages/payment.html?status=exceededUse");
         }
+
+        break;
       } else {
-        var dateCreated = Date.today().toFormat("YYYY-MM-DD");
+        var dateCreated = new Date().toISOString().replace(".", "_");
 
         _app.default.database().ref("user/FreeUser/" + ipAddress).set({
           timesAccessed: 1,
@@ -29866,7 +29866,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58773" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61851" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

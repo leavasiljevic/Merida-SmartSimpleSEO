@@ -6,7 +6,6 @@ require("date-utils");
 
 firebase.initializeApp(config);
 
-firebase.initializeApp(config);
 var ipAddress = "";
 var userType = "";
 var ipAddress = "";
@@ -30,7 +29,7 @@ document.getElementById("compare").addEventListener("click", evt => {
                     }
                 }
                 else {
-                    createFreeUser();
+                    searchFreeUser();
                 }
             });
         }
@@ -42,7 +41,7 @@ document.getElementById("compare").addEventListener("click", evt => {
 });
 
 
-function createFreeUser() {
+function searchFreeUser() {
     fetch('https://api.ipify.org?format=json').then(function (response) {
         return response.json();
     }).then(function (myJson) {
@@ -58,19 +57,22 @@ function findIPAddress(ipAddress) {
         const oItems = snapshot.val();
         const aKeys = Object.keys(oItems);
         for (let n = 0; n < aKeys.length; n++) {
+
             if (aKeys[n] == ipAddress) {
                 counter = oItems[aKeys[n]].timesAccessed;
-                if ((counter) && counter < 2) {
+                if (counter < 2) {
                     firebase.database().ref("user/FreeUser/" + ipAddress).update({
                         timesAccessed: 2
                     })
+
                 }
-                else {
-                    window.location.replace("../pages/payment.html");
+                else if (counter == 2) {
+                    window.location.replace("../pages/payment.html?status=exceededUse");
                 }
+                break;
             }
             else {
-                const dateCreated = Date.today().toFormat("YYYY-MM-DD");
+                const dateCreated = new Date().toISOString().replace(".", "_");
                 firebase.database().ref("user/FreeUser/" + ipAddress).set({
                     timesAccessed: 1,
                     dateCreated: dateCreated
@@ -79,4 +81,3 @@ function findIPAddress(ipAddress) {
         }
     })
 }
-

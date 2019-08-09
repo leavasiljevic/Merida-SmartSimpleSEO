@@ -35,7 +35,7 @@ firstNameField.addEventListener("blur", evt => {
     var firstName = document.getElementById("firstName").value;
     var valid = validateTextOnly(firstName);
     if (valid == false) {
-        userError.innerHTML = "You seem to have changed the value of first name but what you entered doesn't look like a name.";
+        userError.innerHTML = "You seem to have changed a value but we cannot accept that change.";
         firstNameField.focus();
     }
 })
@@ -93,6 +93,7 @@ submitClick.addEventListener("click", evt => {
             console.log(errorCode);
         });
     }
+    userError.innerHTML="Fields changed have been updated";
 })
 
 

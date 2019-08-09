@@ -29794,7 +29794,7 @@ firstNameField.addEventListener("blur", function (evt) {
   var valid = validateTextOnly(firstName);
 
   if (valid == false) {
-    userError.innerHTML = "You seem to have changed the value of first name but what you entered doesn't look like a name.";
+    userError.innerHTML = "You seem to have changed a value but we cannot accept that change.";
     firstNameField.focus();
   }
 });
@@ -29859,6 +29859,8 @@ submitClick.addEventListener("click", function (evt) {
       console.log(errorCode);
     });
   }
+
+  userError.innerHTML = "Fields changed have been updated";
 });
 
 function validateEmail(email) {
@@ -29904,7 +29906,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58773" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61851" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

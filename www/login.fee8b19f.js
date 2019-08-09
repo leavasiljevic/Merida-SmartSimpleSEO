@@ -29790,6 +29790,10 @@ document.getElementById("loginSubmit").addEventListener("click", function (evt) 
       _app.default.auth().signInWithEmailAndPassword(userEmail, password).then(function () {
         var sUser = _app.default.auth().currentUser.uid;
 
+        if (sessionStorage.sUser !== sUser) {
+          sessionStorage.sUser = sUser;
+        }
+
         _app.default.auth().onAuthStateChanged(function (user) {
           if (user) {
             _app.default.database().ref("user/" + sUser).on("value", function (snapshot) {
@@ -29802,7 +29806,7 @@ document.getElementById("loginSubmit").addEventListener("click", function (evt) 
                   break;
 
                 case "paid":
-                  checkPaidStatus();
+                  //checkPaidStatus();
                   window.location.replace("../pages/dashboard.html");
                   break;
 
@@ -29832,16 +29836,14 @@ document.getElementById("loginSubmit").addEventListener("click", function (evt) 
     document.getElementById("loginError").innerHTML = "That doesn't look like an email address. Try again!";
   }
 }); //var lastPayDate="";
-
-function checkPaidStatus() {
-  var sUser = _app.default.auth().currentUser.uid;
-
-  _app.default.database().ref("user/" + sUser + "/payment").on("child_added", function (data) {
-    var lastPayDate = new Date(data.key);
-    var months = lastPayDate.getMonthsBetween(Date.now());
-    console.log(months);
-  });
-}
+// function checkPaidStatus() {
+//     var sUser = firebase.auth().currentUser.uid;
+//     firebase.database().ref("user/" + sUser + "/payment").on("child_added", function (data) {
+//         var lastPayDate = new Date(data.key);
+//         var months = lastPayDate.getMonthsBetween(Date.now());
+//         console.log(months);
+//     })
+// }
 },{"firebase/app":"../node_modules/firebase/app/dist/index.cjs.js","firebase/auth":"../node_modules/firebase/auth/dist/index.esm.js","firebase/database":"../node_modules/firebase/database/dist/index.esm.js","../firebase":"firebase.js","date-utils":"../node_modules/date-utils/lib/date-utils.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -29870,7 +29872,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58773" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61851" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
