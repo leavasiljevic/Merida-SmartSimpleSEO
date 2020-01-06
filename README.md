@@ -1,3 +1,1 @@
-# SimpleSEO
 
-# simpleseo2300
